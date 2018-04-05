@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:bed_sensor-cache
 EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
@@ -197,7 +198,7 @@ U 1 1 5AC66FAB
 P 4600 3650
 F 0 "RV1" H 4530 3604 50  0000 R CNN
 F 1 "10K" H 4530 3695 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_ACP_CA6-H2,5_Horizontal" H 4600 3650 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Piher_PC-16_Single_Vertical" H 4600 3650 50  0001 C CNN
 F 3 "~" H 4600 3650 50  0001 C CNN
 	1    4600 3650
 	-1   0    0    1   

@@ -1,0 +1,14 @@
+"Id";"Designator";"Package";"Quantity";"Designation";"Supplier and ref";
+1;"J1";"JSTPH2";1;"Conn_01x02";;;
+2;"J2";"PinHeader_1x06_P2.54mm_Horizontal";1;"Conn_01x06";;;
+3;"J3";"PinHeader_1x02_P2.54mm_Vertical";1;"Conn_01x02";;;
+4;"SW1";"SW_CuK_OS102011MA1QN1_SPDT_Angled";1;"SW_SPST";;;
+5;"uP1";"ArduProMini";1;"ARDUPROMINI";;;
+6;"RV1";"Potentiometer_ACP_CA6-H2,5_Horizontal";1;"10K";;;
+7;"D1";"D_DO-35_SOD27_P7.62mm_Horizontal";1;"D";;;
+8;"Q1";"TO-92_Inline";1;"2N2219";;;
+9;"R1";"R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal";1;"220";;;
+10;"R2";"R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal";1;"1K";;;
+11;"BZ1";"MagneticBuzzer_Kingstate_KCG0601";1;"Buzzer";;;
+12;"DS1";"NHD-0216HZ-FSW-FBW-33V3C";1;"WC1602A";;;
+13;"J4";"PinSocket_1x08_P2.54mm_Vertical";1;"Conn_01x08";;;

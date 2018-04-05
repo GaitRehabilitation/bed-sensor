@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/michaelpollind/projects/bed_sensor/bed_sensor.sch)
-    (date "Thu 05 Apr 2018 11:39:52 AM PDT")
+    (date "Thu 05 Apr 2018 01:08:27 PM PDT")
     (tool "Eeschema 5.0.0-rc2-dev-unknown-0171547~63~ubuntu17.10.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
