@@ -1,14 +1,14 @@
 Id,Designator,Package,Quantity,Designation,Supplier and ref
 1,J1,JSTPH2,1,Conn_01x02,https://www.adafruit.com/product/1769
 2,J2,PinHeader_1x06_P2.54mm_Horizontal,1,Conn_01x06,
-3,J3,PinHeader_1x02_P2.54mm_Vertical,1,Conn_01x02,
-4,SW1,SW_CuK_OS102011MA1QN1_SPDT_Angled,1,SW_SPST,
+3,J3,PinHeader_1x02_P2.54mm_Vertical,1,Conn_01x02,https://www.adafruit.com/product/1201
+4,SW1,SW_CuK_OS102011MA1QN1_SPDT_Angled,1,SW_SPST,https://www.mouser.com/ProductDetail/611-OS102011MA1QN1
 5,uP1,ArduProMini,1,ARDUPROMINI,
 6,RV1,"Potentiometer_ACP_CA6-H2,5_Horizontal",1,10K,https://www.mouser.com/ProductDetail/Bourns/3310C-001-103L?qs=%2fha2pyFaduibOti1EpX0vnAlAXZ%252bkj9bdYoKkiFN0cVmyz0BZaZN9w%3d%3d
 7,D1,D_DO-35_SOD27_P7.62mm_Horizontal,1,D,
 8,Q1,TO-92_Inline,1,2N2219,
 9,R1,R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal,1,220,
 10,R2,R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal,1,1K,
-11,BZ1,MagneticBuzzer_Kingstate_KCG0601,1,Buzzer,
+11,BZ1,MagneticBuzzer_Kingstate_KCG0601,1,Buzzer,https://www.mouser.com/ProductDetail/TDK/PS1240P02CT3?qs=sGAEpiMZZMs%252b6Ea5iKw4JoP%2fJ%2fqwrEG3
 12,DS1,NHD-0216HZ-FSW-FBW-33V3C,1,WC1602A,https://www.mouser.com/ProductDetail/Newhaven-Display/NHD-0216HZ-FSW-FBW-33V3C?qs=%2fha2pyFadujEgI3vbt6cm0GUIn3bDYi6F4P4%252bWMKHp9oh2AzRXf6BWIWGJkQMAeX
 13,J4,PinSocket_1x08_P2.54mm_Vertical,1,Conn_01x08,https://www.amazon.com/MPU-6050-MPU6050-Accelerometer-Gyroscope-Converter/dp/B008BOPN40/ref=sr_1_1?ie=UTF8&qid=1522966885&sr=8-1&keywords=mpu6050
