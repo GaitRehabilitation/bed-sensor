@@ -1,0 +1,411 @@
+EESchema Schematic File Version 4
+LIBS:foot_sensor-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 3 4
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L foot_sensor-rescue:ATMEGA328-AU U3
+U 1 1 5AA3AF01
+P 4350 3750
+F 0 "U3" H 3600 5000 50  0000 L BNN
+F 1 "ATMEGA328-AU" H 4750 2350 50  0000 L BNN
+F 2 "Housings_QFP:TQFP-32_7x7mm_Pitch0.8mm" H 4350 3750 50  0001 C CIN
+F 3 "" H 4350 3750 50  0001 C CNN
+	1    4350 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR034
+U 1 1 5AA50249
+P 6250 3800
+F 0 "#PWR034" H 6250 3650 50  0001 C CNN
+F 1 "+3V3" H 6250 3940 50  0000 C CNN
+F 2 "" H 6250 3800 50  0001 C CNN
+F 3 "" H 6250 3800 50  0001 C CNN
+	1    6250 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L foot_sensor-rescue:C C9
+U 1 1 5AA50278
+P 6450 4100
+F 0 "C9" H 6475 4200 50  0000 L CNN
+F 1 ".1uF" H 6475 4000 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 6488 3950 50  0001 C CNN
+F 3 "" H 6450 4100 50  0001 C CNN
+	1    6450 4100
+	0    -1   -1   0   
+$EndComp
+Text HLabel 6600 4100 2    60   Input ~ 0
+DTR
+$Comp
+L power:GND #PWR035
+U 1 1 5AA503C6
+P 6250 4500
+F 0 "#PWR035" H 6250 4250 50  0001 C CNN
+F 1 "GND" H 6250 4350 50  0000 C CNN
+F 2 "" H 6250 4500 50  0001 C CNN
+F 3 "" H 6250 4500 50  0001 C CNN
+	1    6250 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR030
+U 1 1 5AA50483
+P 3350 2400
+F 0 "#PWR030" H 3350 2250 50  0001 C CNN
+F 1 "+3.3V" H 3350 2540 50  0000 C CNN
+F 2 "" H 3350 2400 50  0001 C CNN
+F 3 "" H 3350 2400 50  0001 C CNN
+	1    3350 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L foot_sensor-rescue:C C8
+U 1 1 5AA504C3
+P 3100 3450
+F 0 "C8" H 3125 3550 50  0000 L CNN
+F 1 ".1uF" H 3125 3350 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 3138 3300 50  0001 C CNN
+F 3 "" H 3100 3450 50  0001 C CNN
+	1    3100 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR029
+U 1 1 5AA5055F
+P 3100 3600
+F 0 "#PWR029" H 3100 3350 50  0001 C CNN
+F 1 "GND" H 3100 3450 50  0000 C CNN
+F 2 "" H 3100 3600 50  0001 C CNN
+F 3 "" H 3100 3600 50  0001 C CNN
+	1    3100 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR033
+U 1 1 5AA5081E
+P 5800 3800
+F 0 "#PWR033" H 5800 3550 50  0001 C CNN
+F 1 "GND" H 5800 3650 50  0000 C CNN
+F 2 "" H 5800 3800 50  0001 C CNN
+F 3 "" H 5800 3800 50  0001 C CNN
+	1    5800 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L foot_sensor-rescue:Crystal_GND2 Y1
+U 1 1 5AA509A8
+P 5800 3600
+F 0 "Y1" H 5800 3825 50  0000 C CNN
+F 1 "Crystal_GND2" H 5800 3750 50  0000 C CNN
+F 2 "crystal_1:OSC_CSTCE8M00G55-R0" H 5800 3600 50  0001 C CNN
+F 3 "" H 5800 3600 50  0001 C CNN
+	1    5800 3600
+	1    0    0    -1  
+$EndComp
+Text HLabel 5350 3500 2    60   Input ~ 0
+A0
+Text HLabel 5350 3600 2    60   Input ~ 0
+A1
+Text HLabel 5350 3700 2    60   Input ~ 0
+A2
+Text HLabel 5350 3800 2    60   Input ~ 0
+A3
+Text HLabel 5350 3900 2    60   Input ~ 0
+SDA
+Text HLabel 5350 4000 2    60   Input ~ 0
+SCL
+$Comp
+L foot_sensor-rescue:Conn_02x03_Odd_Even J7
+U 1 1 5AA50E83
+P 7250 2950
+F 0 "J7" H 7300 3150 50  0000 C CNN
+F 1 "ISP" H 7300 2750 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_2x03_Pitch2.54mm" H 7250 2950 50  0001 C CNN
+F 3 "" H 7250 2950 50  0001 C CNN
+	1    7250 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L foot_sensor-rescue:Conn_01x06 J2
+U 1 1 5AA50EF4
+P 7200 3850
+F 0 "J2" H 7200 4150 50  0000 C CNN
+F 1 "Serial" H 7200 3450 50  0000 C CNN
+F 2 "Socket_Strips:Socket_Strip_Straight_1x06_Pitch2.54mm" H 7200 3850 50  0001 C CNN
+F 3 "" H 7200 3850 50  0001 C CNN
+	1    7200 3850
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR036
+U 1 1 5AA5120B
+P 7400 3550
+F 0 "#PWR036" H 7400 3300 50  0001 C CNN
+F 1 "GND" V 7400 3350 50  0000 C CNN
+F 2 "" H 7400 3550 50  0001 C CNN
+F 3 "" H 7400 3550 50  0001 C CNN
+	1    7400 3550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR037
+U 1 1 5AA5122F
+P 7400 3650
+F 0 "#PWR037" H 7400 3400 50  0001 C CNN
+F 1 "GND" V 7400 3450 50  0000 C CNN
+F 2 "" H 7400 3650 50  0001 C CNN
+F 3 "" H 7400 3650 50  0001 C CNN
+	1    7400 3650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:VCC #PWR038
+U 1 1 5AA528F2
+P 7400 3750
+F 0 "#PWR038" H 7400 3600 50  0001 C CNN
+F 1 "VCC" V 7400 3950 50  0000 C CNN
+F 2 "" H 7400 3750 50  0001 C CNN
+F 3 "" H 7400 3750 50  0001 C CNN
+	1    7400 3750
+	0    1    1    0   
+$EndComp
+Text HLabel 7400 3950 2    60   Input ~ 0
+TX0
+Text HLabel 7400 3850 2    60   Input ~ 0
+RX1
+Text HLabel 7400 4050 2    60   Input ~ 0
+DTR
+Text HLabel 5350 4250 2    60   Input ~ 0
+RX1
+Text HLabel 5350 4350 2    60   Input ~ 0
+TX0
+Text HLabel 5350 4450 2    60   Input ~ 0
+D2
+Text HLabel 5350 4550 2    60   Input ~ 0
+D3
+Text HLabel 5350 4650 2    60   Input ~ 0
+D4
+Text HLabel 5350 4750 2    60   Input ~ 0
+D5
+Text HLabel 5350 4850 2    60   Input ~ 0
+D6
+Text HLabel 5350 4950 2    60   Input ~ 0
+D7
+Text HLabel 5350 2750 2    60   Input ~ 0
+D9
+Text HLabel 5350 2650 2    60   Input ~ 0
+D8
+Text HLabel 5350 2850 2    60   Input ~ 0
+D10
+Text HLabel 5350 2950 2    60   Input ~ 0
+MOSI
+Text HLabel 5350 3050 2    60   Input ~ 0
+MISO
+Text HLabel 5900 3150 2    60   Input ~ 0
+SCK
+$Comp
+L foot_sensor-rescue:R R7
+U 1 1 5AA535D6
+P 5750 2700
+F 0 "R7" V 5830 2700 50  0000 C CNN
+F 1 "330" V 5750 2700 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5680 2700 50  0001 C CNN
+F 3 "" H 5750 2700 50  0001 C CNN
+	1    5750 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L foot_sensor-rescue:LED D3
+U 1 1 5AA53637
+P 5750 2400
+F 0 "D3" H 5750 2500 50  0000 C CNN
+F 1 "LED" H 5750 2300 50  0000 C CNN
+F 2 "LEDs:LED_0805" H 5750 2400 50  0001 C CNN
+F 3 "" H 5750 2400 50  0001 C CNN
+	1    5750 2400
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR032
+U 1 1 5AA5380E
+P 5750 2250
+F 0 "#PWR032" H 5750 2000 50  0001 C CNN
+F 1 "GND" H 5750 2100 50  0000 C CNN
+F 2 "" H 5750 2250 50  0001 C CNN
+F 3 "" H 5750 2250 50  0001 C CNN
+	1    5750 2250
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR031
+U 1 1 5AA53893
+P 3350 5050
+F 0 "#PWR031" H 3350 4800 50  0001 C CNN
+F 1 "GND" H 3350 4900 50  0000 C CNN
+F 2 "" H 3350 5050 50  0001 C CNN
+F 3 "" H 3350 5050 50  0001 C CNN
+	1    3350 5050
+	1    0    0    -1  
+$EndComp
+Text HLabel 3450 4000 0    60   Input ~ 0
+A6
+Text HLabel 3450 4100 0    60   Input ~ 0
+A7
+Text HLabel 7050 2850 0    60   Input ~ 0
+MISO
+Text HLabel 7050 2950 0    60   Input ~ 0
+SCK
+Text HLabel 5400 4150 2    60   Input ~ 0
+RESET
+Wire Wire Line
+	6300 4100 6250 4100
+Connection ~ 6250 4100
+Wire Wire Line
+	3350 2950 3450 2950
+Wire Wire Line
+	3350 2400 3350 2650
+Wire Wire Line
+	3350 2650 3450 2650
+Wire Wire Line
+	3450 2750 3350 2750
+Connection ~ 3350 2750
+Connection ~ 3350 2650
+Wire Wire Line
+	3100 3300 3100 3250
+Wire Wire Line
+	3100 3250 3450 3250
+Wire Wire Line
+	5650 3600 5650 3350
+Wire Wire Line
+	5650 3350 5350 3350
+Wire Wire Line
+	5950 3600 5950 3250
+Wire Wire Line
+	5950 3250 5350 3250
+Wire Wire Line
+	5350 3150 5750 3150
+Wire Wire Line
+	5750 3150 5750 2850
+Wire Wire Line
+	3450 4750 3350 4750
+Wire Wire Line
+	3350 4750 3350 4850
+Wire Wire Line
+	3450 4850 3350 4850
+Connection ~ 3350 4850
+Wire Wire Line
+	3450 4950 3350 4950
+Connection ~ 3350 4950
+Wire Wire Line
+	5400 4150 5400 4100
+Connection ~ 5400 4100
+Text HLabel 7050 3050 0    60   Input ~ 0
+RESET
+$Comp
+L power:VCC #PWR039
+U 1 1 5AA53ACF
+P 7550 2850
+F 0 "#PWR039" H 7550 2700 50  0001 C CNN
+F 1 "VCC" V 7550 3050 50  0000 C CNN
+F 2 "" H 7550 2850 50  0001 C CNN
+F 3 "" H 7550 2850 50  0001 C CNN
+	1    7550 2850
+	0    1    1    0   
+$EndComp
+Text HLabel 7550 2950 2    60   Input ~ 0
+MOSI
+$Comp
+L power:GND #PWR040
+U 1 1 5AA53B0C
+P 7550 3050
+F 0 "#PWR040" H 7550 2800 50  0001 C CNN
+F 1 "GND" V 7550 2850 50  0000 C CNN
+F 2 "" H 7550 3050 50  0001 C CNN
+F 3 "" H 7550 3050 50  0001 C CNN
+	1    7550 3050
+	0    -1   -1   0   
+$EndComp
+Connection ~ 5750 3150
+$Comp
+L foot_sensor-rescue:R R8
+U 1 1 5AA64955
+P 6250 3950
+F 0 "R8" V 6330 3950 50  0000 C CNN
+F 1 "10K" V 6250 3950 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 6180 3950 50  0001 C CNN
+F 3 "" H 6250 3950 50  0001 C CNN
+	1    6250 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L foot_sensor-rescue:GS2 J8
+U 1 1 5AA4B8C4
+P 6250 4300
+F 0 "J8" H 6350 4450 50  0000 C CNN
+F 1 "GS2" H 6350 4151 50  0000 C CNN
+F 2 "Connectors:GS2" V 6324 4300 50  0001 C CNN
+F 3 "" H 6250 4300 50  0001 C CNN
+	1    6250 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR028
+U 1 1 5AA59C69
+P 2700 4350
+F 0 "#PWR028" H 2700 4100 50  0001 C CNN
+F 1 "GND" H 2700 4200 50  0000 C CNN
+F 2 "" H 2700 4350 50  0001 C CNN
+F 3 "" H 2700 4350 50  0001 C CNN
+	1    2700 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L foot_sensor-rescue:C C10
+U 1 1 5AA59C91
+P 2700 4200
+F 0 "C10" H 2725 4300 50  0000 L CNN
+F 1 ".1uF" H 2725 4100 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 2738 4050 50  0001 C CNN
+F 3 "" H 2700 4200 50  0001 C CNN
+	1    2700 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR027
+U 1 1 5AA59D07
+P 2700 4050
+F 0 "#PWR027" H 2700 3900 50  0001 C CNN
+F 1 "+3.3V" H 2700 4190 50  0000 C CNN
+F 2 "" H 2700 4050 50  0001 C CNN
+F 3 "" H 2700 4050 50  0001 C CNN
+	1    2700 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6250 4100 5400 4100
+Wire Wire Line
+	3350 2750 3350 2950
+Wire Wire Line
+	3350 2650 3350 2750
+Wire Wire Line
+	3350 4850 3350 4950
+Wire Wire Line
+	3350 4950 3350 5050
+Wire Wire Line
+	5400 4100 5350 4100
+Wire Wire Line
+	5750 3150 5900 3150
+$EndSCHEMATC
