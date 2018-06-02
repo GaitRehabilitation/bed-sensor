@@ -1,5 +1,3 @@
 (sym_lib_table
-  (lib (name ardunio_mini)(type Legacy)(uri ${KIPRJMOD}/components/ardunio_mini.lib)(options "")(descr ""))
-  (lib (name foot_sensor-rescue)(type Legacy)(uri /home/michaelpollind/projects/foot_sensor/kicad/foot_sensor-rescue.lib)(options "")(descr ""))
-  (lib (name Crystalfontz)(type Legacy)(uri /home/michaelpollind/projects/bed_sensor/components/Crystalfontz.lib)(options "")(descr ""))
+  (lib (name Crystalfontz)(type Legacy)(uri ${KIPRJMOD}/components/Crystalfontz.lib)(options "")(descr ""))
 )
