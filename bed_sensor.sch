@@ -258,17 +258,6 @@ Text GLabel 5350 4900 2    50   Input ~ 0
 DB4
 Text GLabel 5350 5000 2    50   Input ~ 0
 DB5
-$Comp
-L Device:R R5
-U 1 1 5B1151FC
-P 5650 2300
-F 0 "R5" V 5443 2300 50  0000 C CNN
-F 1 "220" V 5534 2300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 5580 2300 50  0001 C CNN
-F 3 "~" H 5650 2300 50  0001 C CNN
-	1    5650 2300
-	0    1    1    0   
-$EndComp
 Text GLabel 5350 5100 2    50   Input ~ 0
 Vibration
 Text GLabel 5350 5200 2    50   Input ~ 0
@@ -414,17 +403,6 @@ F 2 "components:CFAH0802D-YYH-JP" H 4750 1700 50  0001 C CNN
 F 3 "" H 4750 1700 50  0001 C CNN
 	1    4750 1700
 	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0117
-U 1 1 5B11EDA1
-P 5500 2450
-F 0 "#PWR0117" H 5500 2200 50  0001 C CNN
-F 1 "GND" V 5505 2322 50  0000 R CNN
-F 2 "" H 5500 2450 50  0001 C CNN
-F 3 "" H 5500 2450 50  0001 C CNN
-	1    5500 2450
-	0    -1   -1   0   
 $EndComp
 Wire Wire Line
 	4850 3400 4850 3700
@@ -697,17 +675,6 @@ F 2 "" H 3550 2200 50  0001 C CNN
 F 3 "" H 3550 2200 50  0001 C CNN
 	1    3550 2200
 	0    -1   -1   0   
-$EndComp
-$Comp
-L power:+3.3V #PWR0116
-U 1 1 5B20C130
-P 5800 2300
-F 0 "#PWR0116" H 5800 2150 50  0001 C CNN
-F 1 "+3.3V" V 5815 2428 50  0000 L CNN
-F 2 "" H 5800 2300 50  0001 C CNN
-F 3 "" H 5800 2300 50  0001 C CNN
-	1    5800 2300
-	0    1    1    0   
 $EndComp
 $Comp
 L power:+3.3V #PWR0115
