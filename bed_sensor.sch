@@ -725,4 +725,58 @@ Wire Wire Line
 Connection ~ 2950 4050
 Wire Wire Line
 	2950 4050 2950 3950
+$Comp
+L SD:DM3AT-SF-PEJM5 J5
+U 1 1 5B292A17
+P 4550 7000
+F 0 "J5" H 5279 7046 50  0000 L CNN
+F 1 "DM3AT-SF-PEJM5" H 5279 6955 50  0000 L CNN
+F 2 "components:HRS_DM3AT-SF-PEJM5" H 4550 7000 50  0001 L BNN
+F 3 "None" H 4550 7000 50  0001 L BNN
+F 4 "Hirose" H 4550 7000 50  0001 L BNN "Field4"
+F 5 "DM3AT-SF-PEJM5" H 4550 7000 50  0001 L BNN "Field5"
+F 6 "Warning" H 4550 7000 50  0001 L BNN "Field6"
+F 7 "2.58 USD" H 4550 7000 50  0001 L BNN "Field7"
+F 8 "DM3 RA SMT microSD memory card push/push" H 4550 7000 50  0001 L BNN "Field8"
+	1    4550 7000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0116
+U 1 1 5B292D16
+P 4350 6500
+F 0 "#PWR0116" H 4350 6350 50  0001 C CNN
+F 1 "+3.3V" V 4365 6628 50  0000 L CNN
+F 2 "" H 4350 6500 50  0001 C CNN
+F 3 "" H 4350 6500 50  0001 C CNN
+	1    4350 6500
+	0    -1   -1   0   
+$EndComp
+Text GLabel 4350 6900 0    50   Input ~ 0
+CS
+Text GLabel 5350 5300 2    50   Input ~ 0
+CS
+Text GLabel 4350 7100 0    50   Input ~ 0
+SCK
+Text GLabel 4550 5800 0    50   Input ~ 0
+SCK
+$Comp
+L power:GND #PWR?
+U 1 1 5B293C50
+P 4350 7200
+F 0 "#PWR?" H 4350 6950 50  0001 C CNN
+F 1 "GND" V 4355 7072 50  0000 R CNN
+F 2 "" H 4350 7200 50  0001 C CNN
+F 3 "" H 4350 7200 50  0001 C CNN
+	1    4350 7200
+	0    1    1    0   
+$EndComp
+Text GLabel 4550 5500 0    50   Input ~ 0
+MOSI
+Text GLabel 4350 7000 0    50   Input ~ 0
+MOSI
+Text GLabel 4550 5400 0    50   Input ~ 0
+MISO
+Text GLabel 4350 6600 0    50   Input ~ 0
+MISO
 $EndSCHEMATC

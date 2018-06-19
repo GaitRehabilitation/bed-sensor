@@ -398,10 +398,10 @@ F 3 "~" H 8000 3150 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L MCU_Atmel_ATMEGA:ATMEGA328-AU U?
+L MCU_Atmel_ATMEGA:ATMEGA328-AU U3
 U 1 1 5B216C7D
 P 4750 3150
-F 0 "U?" H 4800 4517 50  0000 C CNN
+F 0 "U3" H 4800 4517 50  0000 C CNN
 F 1 "ATMEGA328-AU" H 4800 4426 50  0000 C CNN
 F 2 "Package_QFP:TQFP-32_7x7mm_P0.8mm" H 4750 3150 50  0001 C CIN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8271-8-bit-avr-microcontroller-atmega48a-48pa-88a-88pa-168a-168pa-328-328p_datasheet.pdf" H 4750 3150 50  0001 C CNN
