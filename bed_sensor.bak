@@ -756,13 +756,13 @@ Text GLabel 4350 6900 0    50   Input ~ 0
 CS
 Text GLabel 5350 5300 2    50   Input ~ 0
 CS
-Text GLabel 4350 7000 0    50   Input ~ 0
-CMD
-Text GLabel 4550 5500 0    50   Input ~ 0
-CMD
+Text GLabel 4350 7100 0    50   Input ~ 0
+SCK
+Text GLabel 4550 5800 0    50   Input ~ 0
+SCK
 $Comp
 L power:GND #PWR0117
-U 1 1 5B292FD3
+U 1 1 5B293C50
 P 4350 7200
 F 0 "#PWR0117" H 4350 6950 50  0001 C CNN
 F 1 "GND" V 4355 7072 50  0000 R CNN
@@ -771,12 +771,65 @@ F 3 "" H 4350 7200 50  0001 C CNN
 	1    4350 7200
 	0    1    1    0   
 $EndComp
-Text GLabel 4350 7100 0    50   Input ~ 0
-SCK
-Text GLabel 4550 5800 0    50   Input ~ 0
-SCK
-Text GLabel 4350 6600 0    50   Input ~ 0
-DAT0
+Text GLabel 4550 5500 0    50   Input ~ 0
+MOSI
+Text GLabel 4350 7000 0    50   Input ~ 0
+MOSI
 Text GLabel 4550 5400 0    50   Input ~ 0
-DAT0
+MISO
+Text GLabel 4350 6600 0    50   Input ~ 0
+MISO
+$Comp
+L power:+3.3V #PWR0120
+U 1 1 5B2D3738
+P 7050 3800
+F 0 "#PWR0120" H 7050 3650 50  0001 C CNN
+F 1 "+3.3V" H 7065 3973 50  0000 C CNN
+F 2 "" H 7050 3800 50  0001 C CNN
+F 3 "" H 7050 3800 50  0001 C CNN
+	1    7050 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R5
+U 1 1 5B2D37B1
+P 7050 3950
+F 0 "R5" H 7120 3996 50  0000 L CNN
+F 1 "10k" H 7120 3905 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 6980 3950 50  0001 C CNN
+F 3 "~" H 7050 3950 50  0001 C CNN
+	1    7050 3950
+	1    0    0    -1  
+$EndComp
+Text GLabel 4550 4600 0    50   Input ~ 0
+MODE_SWITCH
+Text GLabel 6750 4100 0    50   Input ~ 0
+MODE_SWITCH
+Wire Wire Line
+	6750 4100 7050 4100
+Wire Wire Line
+	7050 4100 7350 4100
+Connection ~ 7050 4100
+$Comp
+L Switch:SW_Push_Open SW2
+U 1 1 5B2D57E5
+P 7550 4100
+F 0 "SW2" H 7550 4315 50  0000 C CNN
+F 1 "SW_Push_Open" H 7550 4224 50  0000 C CNN
+F 2 "Button_Switch_SMD:SW_SPST_EVQP7A" H 7550 4300 50  0001 C CNN
+F 3 "" H 7550 4300 50  0001 C CNN
+	1    7550 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0121
+U 1 1 5B2D5928
+P 7750 4100
+F 0 "#PWR0121" H 7750 3850 50  0001 C CNN
+F 1 "GND" V 7755 3972 50  0000 R CNN
+F 2 "" H 7750 4100 50  0001 C CNN
+F 3 "" H 7750 4100 50  0001 C CNN
+	1    7750 4100
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC
