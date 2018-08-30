@@ -376,7 +376,7 @@ F 3 "~" H 6650 3600 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Connector_Generic:Conn_02x03_Top_Bottom J3
+L Connector_Generic:Conn_02x03_Odd_Even J3
 U 1 1 5B121CDB
 P 8250 1900
 F 0 "J3" H 8300 2217 50  0000 C CNN
