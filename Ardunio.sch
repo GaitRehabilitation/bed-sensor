@@ -376,17 +376,6 @@ F 3 "~" H 6650 3600 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Connector_Generic:Conn_02x03_Top_Bottom J3
-U 1 1 5B121CDB
-P 8250 1900
-F 0 "J3" H 8300 2217 50  0000 C CNN
-F 1 "ISP" H 8300 2126 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical" H 8250 1900 50  0001 C CNN
-F 3 "~" H 8250 1900 50  0001 C CNN
-	1    8250 1900
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector_Generic:Conn_01x06 J2
 U 1 1 5B121F07
 P 8000 3150
@@ -398,7 +387,7 @@ F 3 "~" H 8000 3150 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L atmel:ATMEGA328-AU U6
+L MCU_Atmel_ATMEGA:ATMEGA328-AU U6
 U 1 1 5B11F80F
 P 4750 3150
 F 0 "U6" H 4800 4517 50  0000 C CNN
@@ -406,6 +395,17 @@ F 1 "ATMEGA328-AU" H 4800 4426 50  0000 C CNN
 F 2 "Housings_QFP:TQFP-32_7x7mm_Pitch0.8mm" H 4750 3150 50  0001 C CIN
 F 3 "http://www.atmel.com/images/atmel-8271-8-bit-avr-microcontroller-atmega48a-48pa-88a-88pa-168a-168pa-328-328p_datasheet.pdf" H 4750 3150 50  0001 C CNN
 	1    4750 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x03_Odd_Even J3
+U 1 1 5B121CDB
+P 8250 1900
+F 0 "J3" H 8300 2217 50  0000 C CNN
+F 1 "ISP" H 8300 2126 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical" H 8250 1900 50  0001 C CNN
+F 3 "~" H 8250 1900 50  0001 C CNN
+	1    8250 1900
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
