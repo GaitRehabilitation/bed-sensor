@@ -392,7 +392,7 @@ U 1 1 5B121F07
 P 8000 3150
 F 0 "J2" H 7920 2625 50  0000 C CNN
 F 1 "Conn_01x06" H 7920 2716 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 8000 3150 50  0001 C CNN
+F 2 "Connector_PinHeader_2.00mm:PinHeader_1x06_P2.00mm_Vertical" H 8000 3150 50  0001 C CNN
 F 3 "~" H 8000 3150 50  0001 C CNN
 	1    8000 3150
 	-1   0    0    1   

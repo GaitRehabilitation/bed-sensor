@@ -1,0 +1,6 @@
+[submodule "firmware/3rdparty/SD"]
+	path = firmware/3rdparty/SD
+	url = https://github.com/arduino-libraries/SD.git
+[submodule "firmware/3rdparty/MiniCore"]
+	path = firmware/3rdparty/MiniCore
+	url = https://github.com/MCUdude/MiniCore.git

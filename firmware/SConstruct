@@ -1,0 +1,64 @@
+# Create and initialize the environment.
+env = Environment()
+
+# Set environment for AVR-GCC.
+env['CC'] = 'avr-gcc'
+env['CXX'] = 'avr-g++'
+env['AS'] = 'avr-gcc'
+env['CPPPATH'] = ['/usr/avr/include/', 'build']
+env['OBJCOPY'] = 'avr-objcopy'
+env['SIZE'] = 'avr-size'
+env.Append(CCFLAGS = '-Os -Wall -Werror -flto')
+
+# Declare some variables about microcontroller.
+# Microcontroller type.
+DEVICE = 'atmega328'
+# Microcontroller frequency.
+CPU_FREQUENCY = '8000000UL' # Hz
+
+# Set environment for an Atmel AVR Atmega 328p microcontroller.
+# Create and initialize the environment.
+env.Append(CCFLAGS = '-mmcu=' + DEVICE)
+env.Append(CXXFLAGS = '-Wno-class-memaccess')
+env.Append(LINKFLAGS = '-mmcu=' + DEVICE)
+env.Append(LINKFLAGS = '-Wl,-u,vfprintf -lprintf_min')
+env.Append(LINKFLAGS = '-lm')
+env.Append(CPPDEFINES = 'F_CPU=' + CPU_FREQUENCY)
+
+# Define target name.
+TARGET = 'build/main'
+
+# Define source file.
+env.Append(CPPPATH=[
+    'src',
+    '3rdparty/MiniCore/avr/cores/MCUdude_corefiles/',
+    '3rdparty/MiniCore/avr/libraries/Wire/src/',
+    '3rdparty/MiniCore/avr/libraries/SPI/src/',
+    '3rdparty/SD/src/',
+    '3rdparty/MiniCore/avr/variants/standard'])
+wiring_pulse = env.Object(
+    target = '3rdparty/MiniCore/avr/cores/MCUdude_corefiles/wiring_pulse_1.o',
+    source = '3rdparty/MiniCore/avr/cores/MCUdude_corefiles/wiring_pulse.S')
+sources = [
+    Glob('./main.cpp'),
+    Glob("3rdparty/MiniCore/avr/cores/MCUdude_corefiles/*.cpp"),
+    Glob("3rdparty/MiniCore/avr/cores/MCUdude_corefiles/*.c"),
+    Glob("3rdparty/MiniCore/avr/libraries/Wire/src/*/*.c"),
+    Glob("3rdparty/MiniCore/avr/libraries/Wire/src/*.cpp"),
+    Glob("3rdparty/MiniCore/avr/libraries/SPI/src/*.cpp"),
+    Glob("3rdparty/SD/src/*/*.cpp"),
+    Glob("3rdparty/SD/src/*.cpp"),
+    wiring_pulse]
+
+# Build the program.
+# Default() is used so that when running scons only sources are
+# compiled and linked- no other commands (see below) are run
+
+Default(env.Program(target = TARGET + '.elf', source = sources))
+
+# Create hex binary file.
+Default(env.Command(TARGET + '.hex', TARGET + '.elf', env['OBJCOPY'] + ' -O ihex $SOURCE $TARGET'))
+
+# Compute memory usage.
+Default(env.Command(None, TARGET + '.elf', env['SIZE'] + ' -C --mcu=' + DEVICE + ' $SOURCE'))
+Default(env.Command(None, None, 'ctags -R -f src/.tags src'))
