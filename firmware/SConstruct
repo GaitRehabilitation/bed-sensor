@@ -24,6 +24,7 @@ env.Append(LINKFLAGS = '-mmcu=' + DEVICE)
 env.Append(LINKFLAGS = '-Wl,-u,vfprintf -lprintf_min')
 env.Append(LINKFLAGS = '-lm')
 env.Append(CPPDEFINES = 'F_CPU=' + CPU_FREQUENCY)
+env.Append(CPPDEFINES = 'ARDUINO')
 
 # Define target name.
 TARGET = 'build/main'
@@ -34,9 +35,9 @@ env.Append(CPPPATH=[
     '3rdparty/MiniCore/avr/cores/MCUdude_corefiles/',
     '3rdparty/MiniCore/avr/libraries/Wire/src/',
     '3rdparty/MiniCore/avr/libraries/SPI/src/',
-    '3rdparty/SD/src/',
     '3rdparty/LiquidCrystal/src/',
-    '3rdparty/MiniCore/avr/variants/standard'])
+    '3rdparty/MiniCore/avr/variants/standard',
+    '3rdparty/SdFat/src'])
 wiring_pulse = env.Object(
     target = '3rdparty/MiniCore/avr/cores/MCUdude_corefiles/wiring_pulse_1.o',
     source = '3rdparty/MiniCore/avr/cores/MCUdude_corefiles/wiring_pulse.S')
@@ -47,9 +48,8 @@ sources = [
     Glob("3rdparty/MiniCore/avr/libraries/Wire/src/*/*.c"),
     Glob("3rdparty/MiniCore/avr/libraries/Wire/src/*.cpp"),
     Glob("3rdparty/MiniCore/avr/libraries/SPI/src/*.cpp"),
-    Glob("3rdparty/SD/src/*/*.cpp"),
-    Glob("3rdparty/SD/src/*.cpp"),
     '3rdparty/LiquidCrystal/src/LiquidCrystal.cpp',
+    Glob("3rdparty/SdFat/src/*/*.cpp"),
     wiring_pulse]
 
 # Build the program.
