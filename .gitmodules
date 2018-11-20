@@ -4,3 +4,6 @@
 [submodule "firmware/3rdparty/MiniCore"]
 	path = firmware/3rdparty/MiniCore
 	url = https://github.com/MCUdude/MiniCore.git
+[submodule "firmware/3rdparty/LiquidCrystal"]
+	path = firmware/3rdparty/LiquidCrystal
+	url = https://github.com/arduino-libraries/LiquidCrystal.git

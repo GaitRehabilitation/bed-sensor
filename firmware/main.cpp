@@ -1,121 +1,180 @@
-#include "Arduino.h"
-
-#include<Wire.h>
+﻿#include <Arduino.h>
+#include <Wire.h>
 #include <SPI.h>
 #include <SD.h>
 
-//----------------------- Pins ------------------------------------
-const int FSR_BACK = 1;
-const int FSR_FRONT = 0;
-const int BUZZER_PIN = 2;
-const int CHIP_SELECT = 10;
+#include <LiquidCrystal.h>
 
+#define COUNTING_STATE 0
+#define ROTATE_STATE 1
 
-//----------------------- Time Constants -------------------------
+#define TARGET_ANGLE 60
+#define TIME 10 //seconds
 
-// determins when the shoe should write to the logger
-const unsigned long SLEEP_TIME = 10000;
+void printDataToSd();
+void updateMPU();
+bool isResting();
+float arcAngle(float tx, float ty, float tz, float fx, float fy, float fz);
+// PINS ------------------------------------------------------
+const int MPU_addr = 0x68;
+const int rs = 2, en = 3, d4 = 6, d5 = 7, d6 = 5, d7 = 4;
+const int piezoPin = 9;
+const int chipSelect = 10;
+// PINS ------------------------------------------------------
 
-// determins how long the vibrating motor runs in ms
-const unsigned long BUZZ_TIME = 500;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
-// --------------------- States -----------------------------------
-const char RAISED = 0;
-const char FRONT_FOOT = 1;
-const char BACK_FOOT = 2;
+int16_t AcX, AcY, AcZ, Tmp, GyX, GyY, GyZ;
+unsigned long previous_time = 0;
 
-const float UPPER_THRESHOLD = 600;
-const float LOWER_THRESHOLD = 400;
+float scaledX, scaledY, scaledZ;
+float restingX, restingY, restingZ;
+float rotationX, rotationY, rotationZ;
 
-char state = 0;
+byte state = 0;
+char fileName[13];
 
-unsigned long current_time;
-unsigned long buzz_time;
-unsigned long sleep_time;
+void setup()
+{
+  Wire.begin();
+  Wire.beginTransmission(MPU_addr);
+  Wire.write(0x6B); // PWR_MGMT_1 register
+  Wire.write(0);    // set to zero (wakes up the MPU-6050)
+  Wire.endTransmission(true);
 
-
-const long DELAY = 4000;
-
-unsigned long trigger = 0;
-
-int front_foot_count = 0;
-const int FOOT_COUNT_LIMIT = 5;
-
-void setup() {
-
-  Serial.begin(9600);
-  delay(1000); //Wait a second for OpenLog to init
-  Serial.println();
-  pinMode(BUZZER_PIN, OUTPUT);
-
-  if (!SD.begin(CHIP_SELECT)) {
-    Serial.println("Card failed, or not present");
+  if (!SD.begin(chipSelect))
+  {
     // don't do anything more:
+    lcd.setCursor(0, 1);
+    lcd.clear();
+    lcd.print("Insert SD");
     while (1);
   }
+
+  int count = 0;
+  while (true)
+  {
+    sprintf_P(fileName, PSTR("LOG%05u.TXT"), count);
+    if (!SD.exists(fileName))
+    {
+      break;
+    }
+
+    if (count > 65533) //There is a max of 65534 logs
+    {
+      lcd.setCursor(0, 1);
+      lcd.clear();
+      lcd.print("Max Logs");
+      while (1)
+        ;
+    }
+    count++;
+  }
+
+  lcd.begin(16, 2);
 }
 
 void loop()
 {
 
-  current_time = millis();
-
-  int fsr_back_foot = analogRead(FSR_BACK);
-  int fsr_front_foot = analogRead(FSR_FRONT);
-
-  switch (state) {
-    case RAISED:
-      if (fsr_front_foot > UPPER_THRESHOLD || fsr_back_foot > UPPER_THRESHOLD) {
-        if (fsr_front_foot < fsr_back_foot)
-          state = BACK_FOOT;
-        else
-          state = FRONT_FOOT;
-      }
-      break;
-    case FRONT_FOOT:
-      if (fsr_front_foot < LOWER_THRESHOLD && fsr_back_foot < LOWER_THRESHOLD) {
-        front_foot_count++;
-        state = RAISED;
-      }
-      break;
-    case BACK_FOOT:
-      if (fsr_front_foot < LOWER_THRESHOLD && fsr_back_foot < LOWER_THRESHOLD) {
-        state = RAISED;
-        front_foot_count = 0;
-      }
-      break;
-
-  }
-  if (front_foot_count >= FOOT_COUNT_LIMIT) {
-    buzz_time  = current_time + BUZZ_TIME;
-    digitalWrite(BUZZER_PIN, HIGH);
-    front_foot_count = 0;
-  }
-  if (current_time > buzz_time)
+  switch (state)
   {
-    digitalWrite(BUZZER_PIN, LOW);
-  }
-
-  if (fsr_front_foot > 10 || fsr_back_foot > 10)
+  case ROTATE_STATE:
   {
-    sleep_time = SLEEP_TIME + current_time;
-  }
-
-  if (sleep_time > current_time) {
-    File dataFile = SD.open("datalog.txt", FILE_WRITE);
-    // if the file is available, write to it:
-    if (dataFile) {
-      dataFile.print(current_time);
-      dataFile.print(",");
-      dataFile.print(fsr_back_foot);
-      dataFile.print(",");
-      dataFile.println(fsr_front_foot);
-      dataFile.close();
+    float angle = arcAngle(restingX, restingY, restingZ, rotationX, rotationY, rotationZ);
+    if(angle > TARGET_ANGLE){
+      state = COUNTING_STATE;
+      previous_time = millis();
+    }
+    if (isResting())
+    {
+      rotationX = .7f * scaledX + (1 - .7f) * rotationX;
+      rotationY = .7f * scaledY + (1 - .7f) * rotationY;
+      rotationZ = .7f * scaledZ + (1 - .7f) * rotationZ
     }
   }
+  break;
+  case default:
+  {
+    // set the cursor to column 0, line 1
+    // (note: line 1 is the second row, since counting begins with 0):
+    lcd.setCursor(0, 1);
+    lcd.print("Keep going");
+    // print the number of seconds since reset:
+    lcd.print((millis() - previous_time) / 1000);
+    if ((millis() - previous_time) > 10000)
+    {
+      tone(piezoPin, 1000, 500);
+      state = ROTATE_STATE;
+    }
 
-  delay(100);
+    if (isResting())
+    {
+      restingX = .7f * scaledX + (1 - .7f) * restingX;
+      restingY = .7f * scaledY + (1 - .7f) * restingY;
+      restingZ = .7f * scaledZ + (1 - .7f) * restingZ;
+    }
+  }
+  break;
+  }
+  lcd.clear();
+
 }
 
 
+float arcAngle(float tx, float ty, float tz, float fx, float fy, float fz)
+{
+  float tmag = sqrt((tx * tx) + (ty * ty) + (tz * tz));
+  float fmag = sqrt((fx * fx) + (fy * fy) + (fz * fz));
 
+  return acosf((tx * fx + ty * fy + tz * fz) / (tmag * fmag)) * (180.0f / PI);
+}
+
+bool isResting()
+{
+  return abs(1.0f - sqrt((scaledX * scaledX) + (scaledY * scaledY) + (scaledZ * scaledZ))) < .01f;
+}
+
+void printDataToSd()
+{
+  File dataFile = SD.open(fileName, FILE_WRITE);
+  if (dataFile)
+  {
+    dataFile.print(millis());
+    dataFile.print(",");
+    dataFile.print(AcX);
+    dataFile.print(",");
+    dataFile.print(AcY);
+    dataFile.print(",");
+    dataFile.print(AcZ);
+    dataFile.print(",");
+    dataFile.print(Tmp);
+    dataFile.print(",");
+    dataFile.print(GyX);
+    dataFile.print(",");
+    dataFile.print(GyY);
+    dataFile.print(",");
+    dataFile.print(GyZ);
+    dataFile.close();
+  }
+}
+
+void updateMPU()
+{
+  Wire.beginTransmission(MPU_addr);
+  Wire.write(0x3B); // starting with register 0x3B (ACCEL_XOUT_H)
+  Wire.endTransmission(false);
+  Wire.requestFrom(MPU_addr, 14, true); // request a total of 14 registers
+  AcX = Wire.read() << 8 | Wire.read(); // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)
+  AcY = Wire.read() << 8 | Wire.read(); // 0x3D (ACCEL_YOUT_H) a& 0x3E (ACCEL_YOUT_L)
+  AcZ = Wire.read() << 8 | Wire.read(); // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L)
+  Tmp = Wire.read() << 8 | Wire.read(); // 0x41 (TEMP_OUT_H) & 0x42 (TEMP_OUT_L)
+  GyX = Wire.read() << 8 | Wire.read(); // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
+  GyY = Wire.read() << 8 | Wire.read(); // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
+  GyZ = Wire.read() << 8 | Wire.read(); // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
+
+  //convert the acceleration to g's
+  scaledX = ((float)AcX) / 2048.0;
+  scaledY = ((float)AcY) / 2048.0;
+  scaledZ = ((float)AcZ) / 2048.0;
+}
