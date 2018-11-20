@@ -7,3 +7,6 @@
 [submodule "firmware/3rdparty/LiquidCrystal"]
 	path = firmware/3rdparty/LiquidCrystal
 	url = https://github.com/arduino-libraries/LiquidCrystal.git
+[submodule "firmware/3rdparty/SdFat"]
+	path = firmware/3rdparty/SdFat
+	url = https://github.com/greiman/SdFat.git

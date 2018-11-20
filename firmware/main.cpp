@@ -8,8 +8,8 @@
 #define COUNTING_STATE 0
 #define ROTATE_STATE 1
 
-#define TARGET_ANGLE 40.0f //degreese
-#define TIME 10000 //milliseconds
+#define TARGET_ANGLE 50.0f //degreese
+#define TIME 10000         //milliseconds
 
 void printDataToSd();
 void updateMPU();
@@ -26,6 +26,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 int16_t AcX, AcY, AcZ, Tmp, GyX, GyY, GyZ;
 unsigned long previous_time = 0;
+unsigned long lcd_refresh = 0;
 
 float scaledX, scaledY, scaledZ;
 float restingX, restingY, restingZ;
@@ -33,8 +34,6 @@ float rotationX, rotationY, rotationZ;
 
 byte state = 0;
 char fileName[13];
-
-
 void setup()
 {
 
@@ -53,7 +52,7 @@ void setup()
 
   Wire.beginTransmission(MPU_addr);
   Wire.write(0x1C);
-  Wire.write(B00001000);   //here is the byte for sensitivity (8g here)
+  Wire.write(B00001000); //here is the byte for sensitivity (8g here)
   Wire.endTransmission(true);
 
   if (!SD.begin(chipSelect))
@@ -62,7 +61,8 @@ void setup()
     lcd.setCursor(0, 1);
     lcd.clear();
     lcd.print("Insert SD");
-    while (1);
+    while (1)
+      ;
   }
 
   int count = 0;
@@ -90,7 +90,6 @@ void setup()
 
 void loop()
 {
-  lcd.clear();
   updateMPU();
   printDataToSd();
   switch (state)
@@ -98,13 +97,20 @@ void loop()
   case ROTATE_STATE:
   {
     float angle = arcAngle(restingX, restingY, restingZ, rotationX, rotationY, rotationZ);
-    lcd.setCursor(0, 0);
-    lcd.print(100.0f*(angle/TARGET_ANGLE));
-    lcd.print('%');
-    lcd.setCursor(0, 1);
-    lcd.print("Keep turning");
 
-    if(angle > TARGET_ANGLE){
+    if ((millis() - lcd_refresh) > 500)
+    {
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print(100.0f * (angle / TARGET_ANGLE));
+      lcd.print('%');
+      lcd.setCursor(0, 1);
+      lcd.print("Keep turning");
+      lcd_refresh = millis();
+    }
+
+    if (angle > TARGET_ANGLE)
+    {
       state = COUNTING_STATE;
       previous_time = millis();
     }
@@ -118,12 +124,14 @@ void loop()
   break;
   case COUNTING_STATE:
   {
-    // set the cursor to column 0, line 1
-    // (note: line 1 is the second row, since counting begins with 0):
-    lcd.setCursor(0, 1);
-    // print the number of seconds since reset:
-    lcd.print((millis() - previous_time) / 1000);
-    
+    if ((millis() - lcd_refresh) > 500)
+    {
+      lcd.clear();
+      lcd.setCursor(0, 1);
+      lcd.print((millis() - previous_time) / 1000);
+      lcd_refresh = millis();
+    }
+
     if ((millis() - previous_time) > 10000)
     {
       tone(piezoPin, 1000, 500);
@@ -131,21 +139,19 @@ void loop()
       rotationX = restingX;
       rotationY = restingY;
       rotationZ = restingZ;
-      
     }
 
     if (isResting())
     {
       restingX = .7f * scaledX + (1 - .7f) * restingX;
       restingY = .7f * scaledY + (1 - .7f) * restingY;
-      restingZ = .7f * scaledZ + (1 - .7f) * restingZ; 
+      restingZ = .7f * scaledZ + (1 - .7f) * restingZ;
     }
   }
   break;
   }
   delay(100);
 }
-
 
 float arcAngle(float tx, float ty, float tz, float fx, float fy, float fz)
 {
