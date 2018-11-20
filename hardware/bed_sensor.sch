@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:bed_sensor-cache
-EELAYER 26 0
+EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -360,7 +360,7 @@ Connection ~ 1800 3150
 Wire Wire Line
 	1800 3150 1800 3300
 $Comp
-L Regulator_Linear:MIC5205-3.3 U1
+L bed_sensor-rescue:MIC5205-3.3-Regulator_Linear U1
 U 1 1 5B11C18F
 P 2650 1250
 F 0 "U1" H 2650 1592 50  0000 C CNN

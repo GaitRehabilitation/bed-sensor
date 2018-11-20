@@ -1,4 +1,5 @@
 (sym_lib_table
   (lib (name Crystalfontz)(type Legacy)(uri ${KIPRJMOD}/components/Crystalfontz.lib)(options "")(descr ""))
   (lib (name SD)(type Legacy)(uri ${KIPRJMOD}/components/DM3AT-SF-PEJM5.lib)(options "")(descr ""))
+  (lib (name bed_sensor-rescue)(type Legacy)(uri ${KIPRJMOD}/bed_sensor-rescue.lib)(options "")(descr ""))
 )
