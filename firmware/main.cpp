@@ -198,13 +198,16 @@ void loop()
         if (angle > TARGET_ANGLE)
         {
           state = COUNTING_STATE;
+          tone(piezoPin, 200, 500);
+          delay(1000);                             
+          tone(piezoPin, 200, 500);
           previous_time = millis();
         }
         if (isResting(scaledX,scaledY,scaledZ))
         {
-          rotationX = .7f * scaledX + (1 - .7f) * rotationX;
-          rotationY = .7f * scaledY + (1 - .7f) * rotationY;
-          rotationZ = .7f * scaledZ + (1 - .7f) * rotationZ;
+          rotationX = .2f * scaledX + (1 - .2f) * rotationX;
+          rotationY = .2f * scaledY + (1 - .2f) * rotationY;
+          rotationZ = .2f * scaledZ + (1 - .2f) * rotationZ;
         }
       }
       break;
@@ -232,9 +235,9 @@ void loop()
 
          if (isResting(scaledX,scaledY,scaledZ))
         {
-          restingX = .7f * scaledX + (1 - .7f) * restingX;
-          restingY = .7f * scaledY + (1 - .7f) * restingY;
-          restingZ = .7f * scaledZ + (1 - .7f) * restingZ;
+          restingX = .2f * scaledX + (1 - .2f) * restingX;
+          restingY = .2f * scaledY + (1 - .2f) * restingY;
+          restingZ = .2f * scaledZ + (1 - .2f) * restingZ;
         }
       }
       break;
@@ -279,7 +282,7 @@ float arcAngle(float tx, float ty, float tz, float fx, float fy, float fz)
 
 bool isResting(float x, float y, float z)
 {
-  return abs(1.0f - sqrt((x * x) + (y * y) + (z * z))) < .2f;
+  return abs(1.0f - sqrt((x * x) + (y * y) + (z * z))) < .05f;
 }
 
 void createBin()
