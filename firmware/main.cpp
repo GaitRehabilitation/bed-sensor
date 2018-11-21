@@ -9,7 +9,7 @@
 #define ROTATE_STATE 1
 
 #define TARGET_ANGLE 50.0f //degreese
-#define TIME 10000         //milliseconds
+#define TIME 3600000         //milliseconds
 #define REMIND_TIME 5000
 
 // PINS ------------------------------------------------------
