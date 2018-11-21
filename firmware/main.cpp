@@ -9,7 +9,7 @@
 #define ROTATE_STATE 1
 
 #define TARGET_ANGLE 50.0f //degreese
-#define TIME 3600000         //milliseconds
+#define TIME 10000//3600000         //milliseconds
 #define REMIND_TIME 5000
 
 // PINS ------------------------------------------------------
@@ -23,6 +23,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 unsigned long previous_time = 0;
 unsigned long lcd_refresh = 0;
+unsigned long resting_time = 0;
 
 float restingX, restingY, restingZ;
 float rotationX, rotationY, rotationZ;
@@ -173,6 +174,7 @@ void loop()
         curBlock = 0;
       }
     }
+
     switch (state)
     {
       case ROTATE_STATE:
@@ -203,11 +205,14 @@ void loop()
           tone(piezoPin, 200, 500);
           previous_time = millis();
         }
-        if (isResting(scaledX,scaledY,scaledZ))
+        if (!isResting(scaledX,scaledY,scaledZ)){
+          resting_time = millis();
+        }
+        if ((millis() - resting_time) > 1000)
         {
-          rotationX = .2f * scaledX + (1 - .2f) * rotationX;
-          rotationY = .2f * scaledY + (1 - .2f) * rotationY;
-          rotationZ = .2f * scaledZ + (1 - .2f) * rotationZ;
+            rotationX = .2f * scaledX + (1 - .2f) * rotationX;
+            rotationY = .2f * scaledY + (1 - .2f) * rotationY;
+            rotationZ = .2f * scaledZ + (1 - .2f) * rotationZ;
         }
       }
       break;
@@ -233,11 +238,15 @@ void loop()
           rotationZ = restingZ;
         }
 
-         if (isResting(scaledX,scaledY,scaledZ))
+        if (!isResting(scaledX,scaledY,scaledZ)){
+          resting_time = millis();
+        }
+        if ((millis() - resting_time) > 1000)
         {
-          restingX = .2f * scaledX + (1 - .2f) * restingX;
-          restingY = .2f * scaledY + (1 - .2f) * restingY;
-          restingZ = .2f * scaledZ + (1 - .2f) * restingZ;
+            restingX = .2f * scaledX + (1 - .2f) * restingX;
+            restingY = .2f * scaledY + (1 - .2f) * restingY;
+            restingZ = .2f * scaledZ + (1 - .2f) * restingZ;
+
         }
       }
       break;
