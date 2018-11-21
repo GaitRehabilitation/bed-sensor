@@ -365,6 +365,7 @@ void acquireData(data_t *data)
   data->gyro[0] = Wire.read() << 8 | Wire.read();  // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
   data->gyro[1] = Wire.read() << 8 | Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
   data->gyro[2] = Wire.read() << 8 | Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
+  data->time = micros();
 
   scaledX = ((float)data->accel[0])/8192.0;
   scaledY = ((float)data->accel[1])/8192.0;
