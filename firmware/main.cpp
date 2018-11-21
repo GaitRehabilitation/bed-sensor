@@ -101,9 +101,9 @@ void setup()
 
 void loop()
 {
-  createBin();
+    createBin();
 
-const uint8_t QUEUE_DIM = BUFFER_BLOCK_COUNT + 1;
+    const uint8_t QUEUE_DIM = BUFFER_BLOCK_COUNT + 1;
     // Index of last queue location.
     const uint8_t QUEUE_LAST = QUEUE_DIM - 1;
 
@@ -263,7 +263,8 @@ const uint8_t QUEUE_DIM = BUFFER_BLOCK_COUNT + 1;
       bn++;
       if (bn == FILE_BLOCK_COUNT)
       {
-        createBin();
+        // file full so create a new bin file and continue
+        break;
       }
     }
   }
