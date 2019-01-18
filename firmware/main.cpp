@@ -9,7 +9,7 @@
 #define ROTATE_STATE 1
 
 #define TARGET_ANGLE 50.0f //degreese
-#define TIME 7200000         //milliseconds
+#define TIME 7200000       //milliseconds
 #define REMIND_TIME 15000
 
 // PINS ------------------------------------------------------
@@ -27,7 +27,7 @@ unsigned long resting_time = 0;
 
 float restingX, restingY, restingZ;
 float rotationX, rotationY, rotationZ;
-float scaledX,scaledY,scaledZ;
+float scaledX, scaledY, scaledZ;
 
 byte state = 0;
 
@@ -79,7 +79,7 @@ void acquireData(data_t *data);
 
 void setup()
 {
-  pinMode(piezoPin,OUTPUT);
+  pinMode(piezoPin, OUTPUT);
 
   restingX = .01f;
   restingY = .01f;
@@ -103,6 +103,8 @@ void setup()
 
 void loop()
 {
+  while (1)
+  {
     createBin();
 
     const uint8_t QUEUE_DIM = BUFFER_BLOCK_COUNT + 1;
@@ -125,12 +127,12 @@ void loop()
     emptyStack[0] = (block_t *)sd.vol()->cacheClear();
     if (emptyStack[0] == 0)
     {
-        return;
+      return;
     }
     // Put rest of buffers on the empty stack.
     for (int i = 1; i < BUFFER_BLOCK_COUNT; i++)
     {
-        emptyStack[i] = &block[i - 1];
+      emptyStack[i] = &block[i - 1];
     }
     emptyTop = BUFFER_BLOCK_COUNT;
     minTop = BUFFER_BLOCK_COUNT;
@@ -138,46 +140,47 @@ void loop()
     // Start a multiple block write.
     if (!sd.card()->writeStart(binFile.firstBlock()))
     {
-        return;
+      return;
     }
 
     uint32_t bn = 0;
     uint32_t maxLatency = 0;
     uint32_t logTime = micros();
 
-  while(1){
-    // --------------------------- Recording Data ----------------------------------------------
+    while (1)
+    {
+      // --------------------------- Recording Data ----------------------------------------------
 
-    // Time for next data record.
-    logTime += LOG_INTERVAL_USEC;
-  
-    if (curBlock == 0 && emptyTop != 0)
-    {
-      curBlock = emptyStack[--emptyTop];
-      if (emptyTop < minTop)
-      {
-        minTop = emptyTop;
-      }
-      curBlock->count = 0;
-    }
-    int32_t delta;
-    do
-    {
-      delta = micros() - logTime;
-    } while (delta < 0);
-    if (curBlock != 0)
-    {
-      acquireData(&curBlock->data[curBlock->count++]);
-      if (curBlock->count == DATA_DIM)
-      {
-        fullQueue[fullHead] = curBlock;
-        fullHead = fullHead < QUEUE_LAST ? fullHead + 1 : 0;
-        curBlock = 0;
-      }
-    }
+      // Time for next data record.
+      logTime += LOG_INTERVAL_USEC;
 
-    switch (state)
-    {
+      if (curBlock == 0 && emptyTop != 0)
+      {
+        curBlock = emptyStack[--emptyTop];
+        if (emptyTop < minTop)
+        {
+          minTop = emptyTop;
+        }
+        curBlock->count = 0;
+      }
+      int32_t delta;
+      do
+      {
+        delta = micros() - logTime;
+      } while (delta < 0);
+      if (curBlock != 0)
+      {
+        acquireData(&curBlock->data[curBlock->count++]);
+        if (curBlock->count == DATA_DIM)
+        {
+          fullQueue[fullHead] = curBlock;
+          fullHead = fullHead < QUEUE_LAST ? fullHead + 1 : 0;
+          curBlock = 0;
+        }
+      }
+
+      switch (state)
+      {
       case ROTATE_STATE:
       {
         float angle = arcAngle(restingX, restingY, restingZ, rotationX, rotationY, rotationZ);
@@ -202,18 +205,20 @@ void loop()
         {
           state = COUNTING_STATE;
           tone(piezoPin, 200, 500);
-          delay(1000);                             
+          delay(1000);
           tone(piezoPin, 200, 500);
           previous_time = millis();
         }
-        if (!isResting(scaledX,scaledY,scaledZ)){
+        if (!isResting(scaledX, scaledY, scaledZ))
+        {
           resting_time = millis();
         }
+
         if ((millis() - resting_time) > 1000)
         {
-            rotationX = .2f * scaledX + (1 - .2f) * rotationX;
-            rotationY = .2f * scaledY + (1 - .2f) * rotationY;
-            rotationZ = .2f * scaledZ + (1 - .2f) * rotationZ;
+          rotationX = .2f * scaledX + (1 - .2f) * rotationX;
+          rotationY = .2f * scaledY + (1 - .2f) * rotationY;
+          rotationZ = .2f * scaledZ + (1 - .2f) * rotationZ;
         }
       }
       break;
@@ -238,46 +243,50 @@ void loop()
           rotationY = restingY;
           rotationZ = restingZ;
         }
-
-        if (!isResting(scaledX,scaledY,scaledZ)){
+        if (!isResting(scaledX, scaledY, scaledZ))
+        {
           resting_time = millis();
         }
+
+        if(abs(1.0f - sqrt((scaledX * scaledX) + (scaledY * scaledY) + (scaledZ * scaledZ))) > 0.35f){
+          previous_time = millis();        
+        }
+
         if ((millis() - resting_time) > 1000)
         {
-            restingX = .2f * scaledX + (1 - .2f) * restingX;
-            restingY = .2f * scaledY + (1 - .2f) * restingY;
-            restingZ = .2f * scaledZ + (1 - .2f) * restingZ;
+          restingX = .2f * scaledX + (1 - .2f) * restingX;
+          restingY = .2f * scaledY + (1 - .2f) * restingY;
+          restingZ = .2f * scaledZ + (1 - .2f) * restingZ;
 
         }
       }
       break;
-    }
-    
-
-
-    if (fullHead != fullTail && !sd.card()->isBusy())
-    {
-      // Get address of block to write.
-      block_t *pBlock = fullQueue[fullTail];
-      fullTail = fullTail < QUEUE_LAST ? fullTail + 1 : 0;
-      // Write block to SD.
-      uint32_t usec = micros();
-      if (!sd.card()->writeData((uint8_t *)pBlock))
-      {
-        sdFail("Write Fail");
       }
-      usec = micros() - usec;
-      if (usec > maxLatency)
+
+      if (fullHead != fullTail && !sd.card()->isBusy())
       {
-        maxLatency = usec;
-      }
-      // Move block to empty queue.
-      emptyStack[emptyTop++] = pBlock;
-      bn++;
-      if (bn == FILE_BLOCK_COUNT)
-      {
-        // file full so create a new bin file and continue
-        break;
+        // Get address of block to write.
+        block_t *pBlock = fullQueue[fullTail];
+        fullTail = fullTail < QUEUE_LAST ? fullTail + 1 : 0;
+        // Write block to SD.
+        uint32_t usec = micros();
+        if (!sd.card()->writeData((uint8_t *)pBlock))
+        {
+          sdFail("Write Fail");
+        }
+        usec = micros() - usec;
+        if (usec > maxLatency)
+        {
+          maxLatency = usec;
+        }
+        // Move block to empty queue.
+        emptyStack[emptyTop++] = pBlock;
+        bn++;
+        if (bn == FILE_BLOCK_COUNT)
+        {
+          // file full so create a new bin file and continue
+          break;
+        }
       }
     }
   }
@@ -381,8 +390,7 @@ void acquireData(data_t *data)
   data->gyro[2] = Wire.read() << 8 | Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
   data->time = micros();
 
-  scaledX = ((float)data->accel[0])/8192.0;
-  scaledY = ((float)data->accel[1])/8192.0;
-  scaledZ = ((float)data->accel[2])/8192.0;
-
+  scaledX = ((float)data->accel[0]) / 8192.0;
+  scaledY = ((float)data->accel[1]) / 8192.0;
+  scaledZ = ((float)data->accel[2]) / 8192.0;
 }
