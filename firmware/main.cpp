@@ -9,8 +9,8 @@
 #define ROTATE_STATE 1
 
 #define TARGET_ANGLE 50.0f //degreese
-#define TIME 10000//3600000         //milliseconds
-#define REMIND_TIME 5000
+#define TIME 7200000         //milliseconds
+#define REMIND_TIME 15000
 
 // PINS ------------------------------------------------------
 const int MPU_addr = 0x68;
@@ -79,6 +79,7 @@ void acquireData(data_t *data);
 
 void setup()
 {
+  pinMode(piezoPin,OUTPUT);
 
   restingX = .01f;
   restingY = .01f;
