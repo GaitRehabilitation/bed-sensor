@@ -19,6 +19,9 @@ const int MPU_addr = 0x68;
 const int rs = 2, en = 3, d4 = 6, d5 = 7, d6 = 5, d7 = 4;
 const int piezoPin = 9;
 const int chipSelect = 10;
+
+const char REPOS_MSG[]  = {"Re-Pos"};
+
 // PINS ------------------------------------------------------
 
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
@@ -201,7 +204,7 @@ void loop()
           lcd.print(100.0f * (angle / TARGET_ANGLE));
           lcd.print('%');
           lcd.setCursor(0, 1);
-          lcd.print("Re-Pos");
+          lcd.print(REPOS_MSG);
           lcd_refresh = millis();
         }
         if ((millis() - previous_time) > REMIND_TIME)
@@ -240,7 +243,7 @@ void loop()
           lcd.clear();
           lcd.setCursor(0, 0);
           lcd.print((millis() - previous_time) / 1000);
-          lcd.print("/");
+          lcd.print('/');
           lcd.setCursor(0, 1);
           lcd.print(TIME / 1000);
           lcd_refresh = millis();
