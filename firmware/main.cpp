@@ -27,15 +27,26 @@ unsigned long lcd_refresh = 0;
 float restingX, restingY, restingZ;
 float rotationX, rotationY, rotationZ;
 float scaledX,scaledY,scaledZ;
+int count = 0;
 
 byte state = 0;
 
 // LOGGING DATA -----------------------------------------------------------
-const uint32_t LOG_INTERVAL_USEC = 2000;
+const uint32_t LOG_INTERVAL_USEC = 10000;
 const uint8_t BUFFER_BLOCK_COUNT = 10;
 const uint32_t FILE_BLOCK_COUNT = 256000;
 const uint8_t ACCEL_DIM = 3;
 const uint8_t GYRO_DIM = 3;
+
+const uint8_t QUEUE_DIM = BUFFER_BLOCK_COUNT + 1;
+// Index of last queue location.
+const uint8_t QUEUE_LAST = QUEUE_DIM - 1;
+
+// Allocate extra buffer space.
+block_t block[BUFFER_BLOCK_COUNT - 1];
+block_t *emptyStack[BUFFER_BLOCK_COUNT];
+block_t *fullQueue[QUEUE_DIM];
+
 
 //sdfat
 SdFat sd;
@@ -78,6 +89,10 @@ void acquireData(data_t *data);
 
 void setup()
 {
+  if (!sd.begin(chipSelect, SD_SCK_MHZ(50)))
+  {
+    sdFail("REQ SD");
+  }
 
   restingX = .01f;
   restingY = .01f;
@@ -103,20 +118,11 @@ void loop()
 {
     createBin();
 
-    const uint8_t QUEUE_DIM = BUFFER_BLOCK_COUNT + 1;
-    // Index of last queue location.
-    const uint8_t QUEUE_LAST = QUEUE_DIM - 1;
-
-    // Allocate extra buffer space.
-    block_t block[BUFFER_BLOCK_COUNT - 1];
-
     block_t *curBlock = 0;
 
-    block_t *emptyStack[BUFFER_BLOCK_COUNT];
     uint8_t emptyTop;
     uint8_t minTop;
 
-    block_t *fullQueue[QUEUE_DIM];
     uint8_t fullHead = 0;
     uint8_t fullTail = 0;
 
@@ -163,6 +169,7 @@ void loop()
     {
       delta = micros() - logTime;
     } while (delta < 0);
+    
     if (curBlock != 0)
     {
       acquireData(&curBlock->data[curBlock->count++]);
@@ -290,57 +297,48 @@ void createBin()
   // max number of blocks to erase per erase call
   const uint32_t ERASE_SIZE = 262144L;
   uint32_t bgnBlock, endBlock;
-
-  if (!sd.begin(chipSelect, SD_SCK_MHZ(50)))
+  while (true)
   {
-    sdFail("REQ SD");
-  }
-  else
-  {
-    int count = 0;
-    while (true)
+    sprintf_P(fileName, PSTR("LOG%05u.BIN"), count);
+    if (count > 65533) //There is a max of 65534 logs
     {
-      sprintf_P(fileName, PSTR("LOG%05u.BIN"), count);
-      if (count > 65533) //There is a max of 65534 logs
-      {
-        sdFail("Max log");
-      }
-      if (!sd.exists(fileName))
-      {
-        // create a new bin file if exsists
-        binFile.close();
-        if (!binFile.createContiguous(fileName, 512 * FILE_BLOCK_COUNT))
-        {
-          sdFail("CRT CONT");
-        }
-
-        // Get the address of the file on the SD.
-        if (!binFile.contiguousRange(&bgnBlock, &endBlock))
-        {
-          sdFail("CRT CONT");
-        }
-
-        // Flash erase all data in the file.
-        uint32_t bgnErase = bgnBlock;
-        uint32_t endErase;
-        while (bgnErase < endBlock)
-        {
-          endErase = bgnErase + ERASE_SIZE;
-          if (endErase > endBlock)
-          {
-            endErase = endBlock;
-          }
-          if (!sd.card()->erase(bgnErase, endErase))
-          {
-            sdFail("Ers Fail");
-          }
-          bgnErase = endErase + 1;
-        }
-
-        break;
-      }
-      count++;
+      sdFail("Max log");
     }
+    if (!sd.exists(fileName))
+    {
+      // create a new bin file if exsists
+      binFile.close();
+      if (!binFile.createContiguous(fileName, 512 * FILE_BLOCK_COUNT))
+      {
+        sdFail("CRT CONT");
+      }
+
+      // Get the address of the file on the SD.
+      if (!binFile.contiguousRange(&bgnBlock, &endBlock))
+      {
+        sdFail("CRT CONT");
+      }
+
+      // Flash erase all data in the file.
+      uint32_t bgnErase = bgnBlock;
+      uint32_t endErase;
+      while (bgnErase < endBlock)
+      {
+        endErase = bgnErase + ERASE_SIZE;
+        if (endErase > endBlock)
+        {
+          endErase = endBlock;
+        }
+        if (!sd.card()->erase(bgnErase, endErase))
+        {
+          sdFail("Ers Fail");
+        }
+        bgnErase = endErase + 1;
+      }
+
+      break;
+    }
+    count++;
   }
 }
 
