@@ -1,10 +1,14 @@
 {
     "files.associations": {
         "cmath": "cpp",
+<<<<<<< HEAD
         "array": "cpp",
         "unordered_map": "cpp",
         "vector": "cpp",
         "initializer_list": "cpp",
         "string_view": "cpp"
+=======
+        "chrono": "cpp"
+>>>>>>> 8bb9085992ed52e00afacfedc5d015d940daf07d
     }
 }

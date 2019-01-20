@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3rdparty/LiquidCrystal" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3rdparty/MiniCore" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3rdparty/SD" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3rdparty/SdFat" vcs="Git" />
+  </component>
+</project>

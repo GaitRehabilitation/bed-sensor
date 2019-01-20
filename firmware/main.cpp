@@ -1,4 +1,6 @@
-﻿#include <Arduino.h>
+﻿#define __AVR_ATmega328__ 1
+
+#include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <SdFat.h>
@@ -9,8 +11,8 @@
 #define ROTATE_STATE 1
 
 #define TARGET_ANGLE 50.0f //degreese
-#define TIME 3600000         //milliseconds
-#define REMIND_TIME 5000
+#define TIME 7200000       //milliseconds
+#define REMIND_TIME 15000
 
 // PINS ------------------------------------------------------
 const int MPU_addr = 0x68;
@@ -23,10 +25,11 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 unsigned long previous_time = 0;
 unsigned long lcd_refresh = 0;
+unsigned long resting_time = 0;
 
 float restingX, restingY, restingZ;
 float rotationX, rotationY, rotationZ;
-float scaledX,scaledY,scaledZ;
+float scaledX, scaledY, scaledZ;
 int count = 0;
 
 byte state = 0;
@@ -38,15 +41,14 @@ const uint32_t FILE_BLOCK_COUNT = 256000;
 const uint8_t ACCEL_DIM = 3;
 const uint8_t GYRO_DIM = 3;
 
+//size of the queue
 const uint8_t QUEUE_DIM = BUFFER_BLOCK_COUNT + 1;
 // Index of last queue location.
 const uint8_t QUEUE_LAST = QUEUE_DIM - 1;
 
-// Allocate extra buffer space.
-block_t block[BUFFER_BLOCK_COUNT - 1];
-block_t *emptyStack[BUFFER_BLOCK_COUNT];
-block_t *fullQueue[QUEUE_DIM];
-
+bool reset_buzzer = false;
+bool reminder_buzzer = false;
+bool reset_on_move = false;
 
 //sdfat
 SdFat sd;
@@ -59,6 +61,7 @@ struct data_t
   int16_t accel[ACCEL_DIM];
   int16_t gyro[GYRO_DIM];
   int16_t temp;
+  uint8_t meta;
 };
 
 // DATA BLOCK 512 bytes --------------------------------------------------------------------
@@ -68,10 +71,6 @@ const uint16_t DATA_DIM = (512 - 2) / sizeof(data_t);
 //Compute fill so block size is 512 bytes.  FILL_DIM may be zero.
 const uint16_t FILL_DIM = 512 - 2 - DATA_DIM * sizeof(data_t);
 
-//size of the queue
-const uint8_t QUEUE_DIM = BUFFER_BLOCK_COUNT + 1;
-// Index of last queue location.
-const uint8_t QUEUE_LAST = QUEUE_DIM - 1;
 
 //data
 struct block_t
@@ -80,6 +79,11 @@ struct block_t
   data_t data[DATA_DIM];
   uint8_t fill[FILL_DIM];
 };
+
+// Allocate extra buffer space.
+block_t block[BUFFER_BLOCK_COUNT - 1];
+block_t *emptyStack[BUFFER_BLOCK_COUNT];
+block_t *fullQueue[QUEUE_DIM];
 
 bool isResting(float x, float y, float z);
 void createBin();
@@ -93,6 +97,7 @@ void setup()
   {
     sdFail("REQ SD");
   }
+  pinMode(piezoPin, OUTPUT);
 
   restingX = .01f;
   restingY = .01f;
@@ -129,12 +134,12 @@ void loop()
     emptyStack[0] = (block_t *)sd.vol()->cacheClear();
     if (emptyStack[0] == 0)
     {
-        return;
+      return;
     }
     // Put rest of buffers on the empty stack.
     for (int i = 1; i < BUFFER_BLOCK_COUNT; i++)
     {
-        emptyStack[i] = &block[i - 1];
+      emptyStack[i] = &block[i - 1];
     }
     emptyTop = BUFFER_BLOCK_COUNT;
     minTop = BUFFER_BLOCK_COUNT;
@@ -142,46 +147,49 @@ void loop()
     // Start a multiple block write.
     if (!sd.card()->writeStart(binFile.firstBlock()))
     {
-        return;
+      return;
     }
 
     uint32_t bn = 0;
     uint32_t maxLatency = 0;
     uint32_t logTime = micros();
 
-  while(1){
-    // --------------------------- Recording Data ----------------------------------------------
+    while (1)
+    {
+      // --------------------------- Recording Data ----------------------------------------------
 
-    // Time for next data record.
-    logTime += LOG_INTERVAL_USEC;
-  
-    if (curBlock == 0 && emptyTop != 0)
-    {
-      curBlock = emptyStack[--emptyTop];
-      if (emptyTop < minTop)
+      // Time for next data record.
+      logTime += LOG_INTERVAL_USEC;
+
+      if (curBlock == 0 && emptyTop != 0)
       {
-        minTop = emptyTop;
+        curBlock = emptyStack[--emptyTop];
+        if (emptyTop < minTop)
+        {
+          minTop = emptyTop;
+        }
+        curBlock->count = 0;
       }
-      curBlock->count = 0;
-    }
-    int32_t delta;
-    do
-    {
-      delta = micros() - logTime;
-    } while (delta < 0);
-    
-    if (curBlock != 0)
-    {
-      acquireData(&curBlock->data[curBlock->count++]);
-      if (curBlock->count == DATA_DIM)
+      int32_t delta;
+      
+      do
       {
-        fullQueue[fullHead] = curBlock;
-        fullHead = fullHead < QUEUE_LAST ? fullHead + 1 : 0;
-        curBlock = 0;
+        delta = micros() - logTime;
+      } while (delta < 0);
+
+      if (curBlock != 0)
+      {
+        acquireData(&curBlock->data[curBlock->count++]);
+        if (curBlock->count == DATA_DIM)
+        {
+          fullQueue[fullHead] = curBlock;
+          fullHead = fullHead < QUEUE_LAST ? fullHead + 1 : 0;
+          curBlock = 0;
+        }
       }
-    }
-    switch (state)
-    {
+
+      switch (state)
+      {
       case ROTATE_STATE:
       {
         float angle = arcAngle(restingX, restingY, restingZ, rotationX, rotationY, rotationZ);
@@ -200,17 +208,24 @@ void loop()
         {
           tone(piezoPin, 1000, 500);
           previous_time = millis();
+          reset_buzzer = true;
         }
 
         if (angle > TARGET_ANGLE)
         {
           state = COUNTING_STATE;
           tone(piezoPin, 200, 500);
-          delay(1000);                             
+          delay(1000);
           tone(piezoPin, 200, 500);
+          reminder_buzzer = true;
           previous_time = millis();
         }
-        if (isResting(scaledX,scaledY,scaledZ))
+        if (!isResting(scaledX, scaledY, scaledZ))
+        {
+          resting_time = millis();
+        }
+
+        if ((millis() - resting_time) > 1000)
         {
           rotationX = .2f * scaledX + (1 - .2f) * rotationX;
           rotationY = .2f * scaledY + (1 - .2f) * rotationY;
@@ -220,7 +235,7 @@ void loop()
       break;
       case COUNTING_STATE:
       {
-        if ((millis() - lcd_refresh) > 500)
+        if ((millis() - lcd_refresh) > 1000)
         {
           lcd.clear();
           lcd.setCursor(0, 0);
@@ -239,8 +254,18 @@ void loop()
           rotationY = restingY;
           rotationZ = restingZ;
         }
+        if (!isResting(scaledX, scaledY, scaledZ))
+        {
+          resting_time = millis();
+        }
 
-         if (isResting(scaledX,scaledY,scaledZ))
+        if (abs(1.0f - sqrt((scaledX * scaledX) + (scaledY * scaledY) + (scaledZ * scaledZ))) > 0.35f)
+        {
+          reset_on_move = true;
+          previous_time = millis();
+        }
+
+        if ((millis() - resting_time) > 1000)
         {
           restingX = .2f * scaledX + (1 - .2f) * restingX;
           restingY = .2f * scaledY + (1 - .2f) * restingY;
@@ -248,36 +273,34 @@ void loop()
         }
       }
       break;
-    }
-    
+      }
 
-
-    if (fullHead != fullTail && !sd.card()->isBusy())
-    {
-      // Get address of block to write.
-      block_t *pBlock = fullQueue[fullTail];
-      fullTail = fullTail < QUEUE_LAST ? fullTail + 1 : 0;
-      // Write block to SD.
-      uint32_t usec = micros();
-      if (!sd.card()->writeData((uint8_t *)pBlock))
+      if (fullHead != fullTail && !sd.card()->isBusy())
       {
-        sdFail("Write Fail");
-      }
-      usec = micros() - usec;
-      if (usec > maxLatency)
-      {
-        maxLatency = usec;
-      }
-      // Move block to empty queue.
-      emptyStack[emptyTop++] = pBlock;
-      bn++;
-      if (bn == FILE_BLOCK_COUNT)
-      {
-        // file full so create a new bin file and continue
-        break;
+        // Get address of block to write.
+        block_t *pBlock = fullQueue[fullTail];
+        fullTail = fullTail < QUEUE_LAST ? fullTail + 1 : 0;
+        // Write block to SD.
+        uint32_t usec = micros();
+        if (!sd.card()->writeData((uint8_t *)pBlock))
+        {
+          sdFail("Write Fail");
+        }
+        usec = micros() - usec;
+        if (usec > maxLatency)
+        {
+          maxLatency = usec;
+        }
+        // Move block to empty queue.
+        emptyStack[emptyTop++] = pBlock;
+        bn++;
+        if (bn == FILE_BLOCK_COUNT)
+        {
+          // file full so create a new bin file and continue
+          break;
+        }
       }
     }
-  }
 }
 
 float arcAngle(float tx, float ty, float tz, float fx, float fy, float fz)
@@ -368,9 +391,19 @@ void acquireData(data_t *data)
   data->gyro[1] = Wire.read() << 8 | Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
   data->gyro[2] = Wire.read() << 8 | Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
   data->time = micros();
+  data->meta = 0;
+  if(reset_buzzer)
+    data->meta |= (1 << 0);
+  if(reminder_buzzer)
+    data->meta |= (1 << 1);
+  if(reset_on_move)
+    data->meta |= (1 << 2);
 
-  scaledX = ((float)data->accel[0])/8192.0;
-  scaledY = ((float)data->accel[1])/8192.0;
-  scaledZ = ((float)data->accel[2])/8192.0;
+  reset_buzzer = false;
+  reminder_buzzer = false;
+  reset_on_move = false;
 
+  scaledX = ((float)data->accel[0]) / 8192.0;
+  scaledY = ((float)data->accel[1]) / 8192.0;
+  scaledZ = ((float)data->accel[2]) / 8192.0;
 }
