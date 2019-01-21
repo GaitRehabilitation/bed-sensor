@@ -178,7 +178,7 @@ void loop()
     {
       // --------------------------- Recording Data ----------------------------------------------
       wdt_reset();
-      
+
       // Time for next data record.
       logTime += LOG_INTERVAL_USEC;
 
@@ -299,6 +299,7 @@ void loop()
       if (fullHead != fullTail && !sd.card()->isBusy())
       {
         if((millis() - meta_update_time)  > 10000){
+          binFile.close();
           metaFile.open(META_FILE,O_CREAT | O_EXCL | O_RDWR);
           metaFile.write((millis() - previous_time));
           binFile.open(fileName,O_CREAT | O_EXCL | O_RDWR);
