@@ -1,6 +1,7 @@
 ﻿#define __AVR_ATmega328__ 1
 
 #include <Arduino.h>
+#include <avr/wdt.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <SdFat.h>
@@ -21,7 +22,7 @@ const int piezoPin = 9;
 const int chipSelect = 10;
 
 const char REPOS_MSG[]  = {"Re-Pos"};
-
+const char META_FILE[]  = {"META.bin"};
 // PINS ------------------------------------------------------
 
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
@@ -29,6 +30,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 unsigned long previous_time = 0;
 unsigned long lcd_refresh = 0;
 unsigned long resting_time = 0;
+unsigned long meta_update_time = 0;
 
 float restingX, restingY, restingZ;
 float rotationX, rotationY, rotationZ;
@@ -56,6 +58,7 @@ bool reset_on_move = false;
 //sdfat
 SdFat sd;
 SdBaseFile binFile;
+SdBaseFile metaFile;
 char fileName[13];
 
 struct data_t
@@ -83,10 +86,6 @@ struct block_t
   uint8_t fill[FILL_DIM];
 };
 
-// Allocate extra buffer space.
-block_t block[BUFFER_BLOCK_COUNT - 1];
-block_t *emptyStack[BUFFER_BLOCK_COUNT];
-block_t *fullQueue[QUEUE_DIM];
 
 bool isResting(float x, float y, float z);
 void createBin();
@@ -96,10 +95,23 @@ void acquireData(data_t *data);
 
 void setup()
 {
+  wdt_enable(WDTO_2S);
+  
   if (!sd.begin(chipSelect, SD_SCK_MHZ(50)))
   {
     sdFail("REQ SD");
   }
+
+  if (!sd.exists(META_FILE))
+  {
+    metaFile.createContiguous(META_FILE,sizeof(unsigned long));
+    metaFile.write(0,sizeof(unsigned long));
+  }else{
+    metaFile.open(META_FILE,O_CREAT | O_EXCL | O_RDWR);
+    metaFile.read(&previous_time,sizeof(unsigned long));
+    previous_time += millis();
+  }
+  
   pinMode(piezoPin, OUTPUT);
 
   restingX = .01f;
@@ -125,6 +137,11 @@ void setup()
 void loop()
 {
     createBin();
+
+    // Allocate extra buffer space.
+    block_t block[BUFFER_BLOCK_COUNT - 1];
+    block_t *emptyStack[BUFFER_BLOCK_COUNT];
+    block_t *fullQueue[QUEUE_DIM];
 
     block_t *curBlock = 0;
 
@@ -160,7 +177,8 @@ void loop()
     while (1)
     {
       // --------------------------- Recording Data ----------------------------------------------
-
+      wdt_reset();
+      
       // Time for next data record.
       logTime += LOG_INTERVAL_USEC;
 
@@ -280,6 +298,18 @@ void loop()
 
       if (fullHead != fullTail && !sd.card()->isBusy())
       {
+        if((millis() - meta_update_time)  > 10000){
+          metaFile.open(META_FILE,O_CREAT | O_EXCL | O_RDWR);
+          metaFile.write((millis() - previous_time));
+          binFile.open(fileName,O_CREAT | O_EXCL | O_RDWR);
+          // Start a multiple block write.
+          if (!sd.card()->writeStart(binFile.firstBlock() + bn))
+          {
+            return;
+          }
+          meta_update_time = millis();
+        }
+
         // Get address of block to write.
         block_t *pBlock = fullQueue[fullTail];
         fullTail = fullTail < QUEUE_LAST ? fullTail + 1 : 0;
@@ -325,6 +355,7 @@ void createBin()
   uint32_t bgnBlock, endBlock;
   while (true)
   {
+    wdt_reset();
     sprintf_P(fileName, PSTR("LOG%05u.BIN"), count);
     if (count > 65533) //There is a max of 65534 logs
     {
@@ -350,6 +381,8 @@ void createBin()
       uint32_t endErase;
       while (bgnErase < endBlock)
       {
+        wdt_reset();
+
         endErase = bgnErase + ERASE_SIZE;
         if (endErase > endBlock)
         {
