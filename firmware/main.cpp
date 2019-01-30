@@ -58,7 +58,7 @@ bool reset_on_move = false;
 //sdfat
 SdFat sd;
 SdBaseFile binFile;
-SdBaseFile metaFile;
+// SdBaseFile metaFile;
 char fileName[13];
 
 struct data_t
@@ -95,22 +95,22 @@ void acquireData(data_t *data);
 
 void setup()
 {
-  wdt_enable(WDTO_2S);
+  // wdt_enable(WDTO_2S);
   
   if (!sd.begin(chipSelect, SD_SCK_MHZ(50)))
   {
     sdFail("REQ SD");
   }
 
-  if (!sd.exists(META_FILE))
-  {
-    metaFile.createContiguous(META_FILE,sizeof(unsigned long));
-    metaFile.write(0,sizeof(unsigned long));
-  }else{
-    metaFile.open(META_FILE,O_CREAT | O_EXCL | O_RDWR);
-    metaFile.read(&previous_time,sizeof(unsigned long));
-    previous_time += millis();
-  }
+  // if (!sd.exists(META_FILE))
+  // {
+  //   metaFile.createContiguous(META_FILE,sizeof(unsigned long));
+  //   metaFile.write(0,sizeof(unsigned long));
+  // }else{
+  //   metaFile.open(META_FILE,O_CREAT | O_EXCL | O_RDWR);
+  //   metaFile.read(&previous_time,sizeof(unsigned long));
+  //   previous_time += millis();
+  // }
   
   pinMode(piezoPin, OUTPUT);
 
@@ -298,18 +298,18 @@ void loop()
 
       if (fullHead != fullTail && !sd.card()->isBusy())
       {
-        if((millis() - meta_update_time)  > 10000){
-          binFile.close();
-          metaFile.open(META_FILE,O_CREAT | O_EXCL | O_RDWR);
-          metaFile.write((millis() - previous_time));
-          binFile.open(fileName,O_CREAT | O_EXCL | O_RDWR);
-          // Start a multiple block write.
-          if (!sd.card()->writeStart(binFile.firstBlock() + bn))
-          {
-            return;
-          }
-          meta_update_time = millis();
-        }
+        // if((millis() - meta_update_time)  > 10000){
+        //   binFile.close();
+        //   metaFile.open(META_FILE,O_CREAT | O_EXCL | O_RDWR);
+        //   metaFile.write((millis() - previous_time));
+        //   binFile.open(fileName,O_CREAT | O_EXCL | O_RDWR);
+        //   // Start a multiple block write.
+        //   if (!sd.card()->writeStart(binFile.firstBlock() + bn))
+        //   {
+        //     return;
+        //   }
+        //   meta_update_time = millis();
+        // }
 
         // Get address of block to write.
         block_t *pBlock = fullQueue[fullTail];
