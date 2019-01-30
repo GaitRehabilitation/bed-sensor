@@ -1,7 +1,6 @@
 ﻿#define __AVR_ATmega328__ 1
 
 #include <Arduino.h>
-#include <avr/wdt.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <SdFat.h>
@@ -35,6 +34,7 @@ unsigned long meta_update_time = 0;
 float restingX, restingY, restingZ;
 float rotationX, rotationY, rotationZ;
 float scaledX, scaledY, scaledZ;
+float movingAvg = 0.0f;
 int count = 0;
 
 byte state = 0;
@@ -101,17 +101,6 @@ void setup()
   {
     sdFail("REQ SD");
   }
-
-  // if (!sd.exists(META_FILE))
-  // {
-  //   metaFile.createContiguous(META_FILE,sizeof(unsigned long));
-  //   metaFile.write(0,sizeof(unsigned long));
-  // }else{
-  //   metaFile.open(META_FILE,O_CREAT | O_EXCL | O_RDWR);
-  //   metaFile.read(&previous_time,sizeof(unsigned long));
-  //   previous_time += millis();
-  // }
-  
   pinMode(piezoPin, OUTPUT);
 
   restingX = .01f;
@@ -177,7 +166,7 @@ void loop()
     while (1)
     {
       // --------------------------- Recording Data ----------------------------------------------
-      wdt_reset();
+    
 
       // Time for next data record.
       logTime += LOG_INTERVAL_USEC;
@@ -280,7 +269,8 @@ void loop()
           resting_time = millis();
         }
 
-        if (abs(1.0f - sqrt((scaledX * scaledX) + (scaledY * scaledY) + (scaledZ * scaledZ))) > 0.35f)
+        movingAvg = (movingAvg * .9f) + (abs(1.0f - sqrt((scaledX * scaledX) + (scaledY * scaledY) + (scaledZ * scaledZ))) * (1-.9f));
+        if (movingAvg > 0.35f)
         {
           reset_on_move = true;
           previous_time = millis();
@@ -298,19 +288,6 @@ void loop()
 
       if (fullHead != fullTail && !sd.card()->isBusy())
       {
-        // if((millis() - meta_update_time)  > 10000){
-        //   binFile.close();
-        //   metaFile.open(META_FILE,O_CREAT | O_EXCL | O_RDWR);
-        //   metaFile.write((millis() - previous_time));
-        //   binFile.open(fileName,O_CREAT | O_EXCL | O_RDWR);
-        //   // Start a multiple block write.
-        //   if (!sd.card()->writeStart(binFile.firstBlock() + bn))
-        //   {
-        //     return;
-        //   }
-        //   meta_update_time = millis();
-        // }
-
         // Get address of block to write.
         block_t *pBlock = fullQueue[fullTail];
         fullTail = fullTail < QUEUE_LAST ? fullTail + 1 : 0;
@@ -356,7 +333,6 @@ void createBin()
   uint32_t bgnBlock, endBlock;
   while (true)
   {
-    wdt_reset();
     sprintf_P(fileName, PSTR("LOG%05u.BIN"), count);
     if (count > 65533) //There is a max of 65534 logs
     {
@@ -382,7 +358,6 @@ void createBin()
       uint32_t endErase;
       while (bgnErase < endBlock)
       {
-        wdt_reset();
 
         endErase = bgnErase + ERASE_SIZE;
         if (endErase > endBlock)
