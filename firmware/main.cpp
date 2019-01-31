@@ -96,7 +96,7 @@ void acquireData(data_t *data);
 void setup()
 {
   // wdt_enable(WDTO_2S);
-  
+  lcd.begin(16, 2);
   if (!sd.begin(chipSelect, SD_SCK_MHZ(50)))
   {
     sdFail("REQ SD");
@@ -120,7 +120,6 @@ void setup()
   Wire.write(0x1C);
   Wire.write(B00001000); //here is the byte for sensitivity (8g here)
   Wire.endTransmission(true);
-  lcd.begin(16, 2);
 }
 
 void loop()
