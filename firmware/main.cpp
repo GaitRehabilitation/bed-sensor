@@ -11,7 +11,7 @@
 #define ROTATE_STATE 1
 
 #define TARGET_ANGLE 50.0f //degreese
-#define TIME 7200000       //milliseconds
+#define TIME 50000//7200000       //milliseconds
 #define REMIND_TIME 15000
 
 // PINS ------------------------------------------------------
@@ -20,8 +20,8 @@ const int rs = 2, en = 3, d4 = 6, d5 = 7, d6 = 5, d7 = 4;
 const int piezoPin = 9;
 const int chipSelect = 10;
 
-const char REPOS_MSG[]  = {"Re-Pos"};
-const char META_FILE[]  = {"META.bin"};
+const char REPOS_MSG[] = {"Re-Pos"};
+const char META_FILE[] = {"META.bin"};
 // PINS ------------------------------------------------------
 
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
@@ -77,7 +77,6 @@ const uint16_t DATA_DIM = (512 - 2) / sizeof(data_t);
 //Compute fill so block size is 512 bytes.  FILL_DIM may be zero.
 const uint16_t FILL_DIM = 512 - 2 - DATA_DIM * sizeof(data_t);
 
-
 //data
 struct block_t
 {
@@ -85,7 +84,6 @@ struct block_t
   data_t data[DATA_DIM];
   uint8_t fill[FILL_DIM];
 };
-
 
 bool isResting(float x, float y, float z);
 void createBin();
@@ -120,209 +118,220 @@ void setup()
   Wire.write(0x1C);
   Wire.write(B00001000); //here is the byte for sensitivity (8g here)
   Wire.endTransmission(true);
+
 }
 
 void loop()
 {
-    createBin();
+  createBin();
+  
+  // Allocate extra buffer space.
+  block_t block[BUFFER_BLOCK_COUNT - 1];
+  block_t *emptyStack[BUFFER_BLOCK_COUNT];
+  block_t *fullQueue[QUEUE_DIM];
 
-    // Allocate extra buffer space.
-    block_t block[BUFFER_BLOCK_COUNT - 1];
-    block_t *emptyStack[BUFFER_BLOCK_COUNT];
-    block_t *fullQueue[QUEUE_DIM];
+  block_t *curBlock = 0;
 
-    block_t *curBlock = 0;
+  uint8_t emptyTop;
+  uint8_t minTop;
 
-    uint8_t emptyTop;
-    uint8_t minTop;
+  uint8_t fullHead = 0;
+  uint8_t fullTail = 0;
 
-    uint8_t fullHead = 0;
-    uint8_t fullTail = 0;
+  emptyStack[0] = (block_t *)sd.vol()->cacheClear();
+  if (emptyStack[0] == 0)
+  {
+    return;
+  }
+  // Put rest of buffers on the empty stack.
+  for (int i = 1; i < BUFFER_BLOCK_COUNT; i++)
+  {
+    emptyStack[i] = &block[i - 1];
+  }
+  emptyTop = BUFFER_BLOCK_COUNT;
+  minTop = BUFFER_BLOCK_COUNT;
 
-    emptyStack[0] = (block_t *)sd.vol()->cacheClear();
-    if (emptyStack[0] == 0)
+  // Start a multiple block write.
+  if (!sd.card()->writeStart(binFile.firstBlock()))
+  {
+    return;
+  }
+
+  uint32_t bn = 0;
+  uint32_t maxLatency = 0;
+  uint32_t logTime = micros();
+
+  while (1)
+  {
+    // --------------------------- Recording Data ----------------------------------------------
+
+    // Time for next data record.
+    logTime += LOG_INTERVAL_USEC;
+
+    if (curBlock == 0 && emptyTop != 0)
     {
-      return;
+      curBlock = emptyStack[--emptyTop];
+      if (emptyTop < minTop)
+      {
+        minTop = emptyTop;
+      }
+      curBlock->count = 0;
     }
-    // Put rest of buffers on the empty stack.
-    for (int i = 1; i < BUFFER_BLOCK_COUNT; i++)
+    int32_t delta;
+
+    do
     {
-      emptyStack[i] = &block[i - 1];
-    }
-    emptyTop = BUFFER_BLOCK_COUNT;
-    minTop = BUFFER_BLOCK_COUNT;
+      delta = micros() - logTime;
+    } while (delta < 0);
 
-    // Start a multiple block write.
-    if (!sd.card()->writeStart(binFile.firstBlock()))
+    if (curBlock != 0)
     {
-      return;
-    }
-
-    uint32_t bn = 0;
-    uint32_t maxLatency = 0;
-    uint32_t logTime = micros();
-
-    while (1)
-    {
-      // --------------------------- Recording Data ----------------------------------------------
-    
-
-      // Time for next data record.
-      logTime += LOG_INTERVAL_USEC;
-
-      if (curBlock == 0 && emptyTop != 0)
+      acquireData(&curBlock->data[curBlock->count++]);
+      if (curBlock->count == DATA_DIM)
       {
-        curBlock = emptyStack[--emptyTop];
-        if (emptyTop < minTop)
-        {
-          minTop = emptyTop;
-        }
-        curBlock->count = 0;
-      }
-      int32_t delta;
-      
-      do
-      {
-        delta = micros() - logTime;
-      } while (delta < 0);
-
-      if (curBlock != 0)
-      {
-        acquireData(&curBlock->data[curBlock->count++]);
-        if (curBlock->count == DATA_DIM)
-        {
-          fullQueue[fullHead] = curBlock;
-          fullHead = fullHead < QUEUE_LAST ? fullHead + 1 : 0;
-          curBlock = 0;
-        }
-      }
-
-      switch (state)
-      {
-      case ROTATE_STATE:
-      {
-        float angle = arcAngle(restingX, restingY, restingZ, rotationX, rotationY, rotationZ);
-
-        if ((millis() - lcd_refresh) > 500)
-        {
-          lcd.clear();
-          lcd.setCursor(0, 0);
-          lcd.print(100.0f * (angle / TARGET_ANGLE));
-          lcd.print('%');
-          lcd.setCursor(0, 1);
-          lcd.print(REPOS_MSG);
-          lcd_refresh = millis();
-        }
-        if ((millis() - previous_time) > REMIND_TIME)
-        {
-          tone(piezoPin, 1000, 500);
-          previous_time = millis();
-          reset_buzzer = true;
-        }
-
-        if (angle > TARGET_ANGLE)
-        {
-          state = COUNTING_STATE;
-          tone(piezoPin, 200, 500);
-          delay(1000);
-          tone(piezoPin, 200, 500);
-          reminder_buzzer = true;
-          previous_time = millis();
-        }
-        if (!isResting(scaledX, scaledY, scaledZ))
-        {
-          resting_time = millis();
-        }
-
-        if ((millis() - resting_time) > 1000)
-        {
-          rotationX = .2f * scaledX + (1 - .2f) * rotationX;
-          rotationY = .2f * scaledY + (1 - .2f) * rotationY;
-          rotationZ = .2f * scaledZ + (1 - .2f) * rotationZ;
-        }
-      }
-      break;
-      case COUNTING_STATE:
-      {
-        if ((millis() - lcd_refresh) > 1000)
-        {
-          lcd.clear();
-          lcd.setCursor(0, 0);
-          lcd.print((millis() - previous_time) / 1000);
-          lcd.print('/');
-          lcd.setCursor(0, 1);
-          lcd.print(TIME / 1000);
-          lcd_refresh = millis();
-        }
-
-        if ((millis() - previous_time) > TIME)
-        {
-          tone(piezoPin, 1000, 500);
-          state = ROTATE_STATE;
-          rotationX = restingX;
-          rotationY = restingY;
-          rotationZ = restingZ;
-        }
-        if (!isResting(scaledX, scaledY, scaledZ))
-        {
-          resting_time = millis();
-        }
-
-        movingAvg = (movingAvg * .9f) + (abs(1.0f - sqrt((scaledX * scaledX) + (scaledY * scaledY) + (scaledZ * scaledZ))) * (1-.9f));
-        if (movingAvg > 0.35f)
-        {
-          reset_on_move = true;
-          previous_time = millis();
-        }
-
-        if ((millis() - resting_time) > 1000)
-        {
-          restingX = .2f * scaledX + (1 - .2f) * restingX;
-          restingY = .2f * scaledY + (1 - .2f) * restingY;
-          restingZ = .2f * scaledZ + (1 - .2f) * restingZ;
-        }
-      }
-      break;
-      }
-
-      if (fullHead != fullTail && !sd.card()->isBusy())
-      {
-        // Get address of block to write.
-        block_t *pBlock = fullQueue[fullTail];
-        fullTail = fullTail < QUEUE_LAST ? fullTail + 1 : 0;
-        // Write block to SD.
-        uint32_t usec = micros();
-        if (!sd.card()->writeData((uint8_t *)pBlock))
-        {
-          sdFail("Write Fail");
-        }
-        usec = micros() - usec;
-        if (usec > maxLatency)
-        {
-          maxLatency = usec;
-        }
-        // Move block to empty queue.
-        emptyStack[emptyTop++] = pBlock;
-        bn++;
-        if (bn == FILE_BLOCK_COUNT)
-        {
-          // file full so create a new bin file and continue
-          break;
-        }
+        fullQueue[fullHead] = curBlock;
+        fullHead = fullHead < QUEUE_LAST ? fullHead + 1 : 0;
+        curBlock = 0;
       }
     }
+
+    switch (state)
+    {
+    case ROTATE_STATE:
+    {
+      float angle = arcAngle(restingX, restingY, restingZ, rotationX, rotationY, rotationZ);
+
+      if ((millis() - lcd_refresh) > 1000)
+      {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print(100.0f * (angle / TARGET_ANGLE));
+        lcd.print('%');
+        lcd.setCursor(0, 1);
+        lcd.print(REPOS_MSG);
+        lcd_refresh = millis();
+      }
+      if ((millis() - previous_time) > REMIND_TIME)
+      {
+        tone(piezoPin, 1000, 500);
+        previous_time = millis();
+        reset_buzzer = true;
+      }
+
+      if (angle > TARGET_ANGLE)
+      {
+        lcd.noDisplay();
+        state = COUNTING_STATE;
+        tone(piezoPin, 200, 500);
+        delay(1000);
+        tone(piezoPin, 200, 500);
+        reminder_buzzer = true;
+        previous_time = millis();
+      }
+      if (!isResting(scaledX, scaledY, scaledZ))
+      {
+        resting_time = millis();
+      }
+
+      if ((millis() - resting_time) > 1000)
+      {
+        rotationX = .2f * scaledX + (1 - .2f) * rotationX;
+        rotationY = .2f * scaledY + (1 - .2f) * rotationY;
+        rotationZ = .2f * scaledZ + (1 - .2f) * rotationZ;
+      }
+    }
+    break;
+    case COUNTING_STATE:
+    {
+      if ((millis() - lcd_refresh) > 1000)
+      {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print((millis() - previous_time) / 1000);
+        lcd.print('/');
+        lcd.setCursor(0, 1);
+        lcd.print(TIME / 1000);
+        lcd_refresh = millis();
+      }
+
+      if ((millis() - previous_time) > TIME)
+      {
+        tone(piezoPin, 1000, 500);
+        state = ROTATE_STATE;
+        rotationX = restingX;
+        rotationY = restingY;
+        rotationZ = restingZ;
+      }
+      //if (!isResting(scaledX, scaledY, scaledZ))
+      {
+        resting_time = millis();
+      }
+
+      movingAvg = (movingAvg * .9f) + (abs(1.0f - sqrt((scaledX * scaledX) + (scaledY * scaledY) + (scaledZ * scaledZ))) * (1 - .9f));
+      if (movingAvg > 0.35f)
+      {
+        reset_on_move = true;
+        previous_time = millis();
+      }
+
+      if ((millis() - resting_time) > 1000)
+      {
+        restingX = .2f * scaledX + (1 - .2f) * restingX;
+        restingY = .2f * scaledY + (1 - .2f) * restingY;
+        restingZ = .2f * scaledZ + (1 - .2f) * restingZ;
+      }
+    }
+    break;
+    }
+
+    if (fullHead != fullTail && !sd.card()->isBusy())
+    {
+      // Get address of block to write.
+      block_t *pBlock = fullQueue[fullTail];
+      fullTail = fullTail < QUEUE_LAST ? fullTail + 1 : 0;
+      // Write block to SD.
+      uint32_t usec = micros();
+      if (!sd.card()->writeData((uint8_t *)pBlock))
+      {
+        sdFail("Write Fail");
+      }
+      usec = micros() - usec;
+      if (usec > maxLatency)
+      {
+        maxLatency = usec;
+      }
+      // Move block to empty queue.
+      emptyStack[emptyTop++] = pBlock;
+      bn++;
+      if (bn == FILE_BLOCK_COUNT)
+      {
+        // file full so create a new bin file and continue
+        break;
+      }
+    }
+  }
 }
 
 float arcAngle(float tx, float ty, float tz, float fx, float fy, float fz)
 {
-  float tmag = sqrt((tx * tx) + (ty * ty) + (tz * tz));
-  float fmag = sqrt((fx * fx) + (fy * fy) + (fz * fz));
+  if(abs(tx - fx) < .0001f && abs(ty - fy) < .0001f && abs(tz - fz) < .0001f)
+    return 10.0f;
+  float tmag = sqrt((tx * tx) + (ty * ty) + (tz * tz)) + .1f;
+  float fmag = sqrt((fx * fx) + (fy * fy) + (fz * fz)) + .1f;
+  tx = tx/tmag;
+  ty = ty/tmag;
+  tz = tz/tmag;
+
+  fx = fx/fmag;
+  fy = fy/fmag;
+  fz = fz/fmag;
+
   return acos((tx * fx + ty * fy + tz * fz) / (tmag * fmag)) * (180.0f / PI);
 }
 
 bool isResting(float x, float y, float z)
 {
-  return abs(1.0f - sqrt((x * x) + (y * y) + (z * z))) < .05f;
+  return abs(1.0f - sqrt((x * x) + (y * y) + (z * z))) < .01f;
 }
 
 void createBin()
@@ -403,11 +412,11 @@ void acquireData(data_t *data)
   data->gyro[2] = Wire.read() << 8 | Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
   data->time = micros();
   data->meta = 0;
-  if(reset_buzzer)
+  if (reset_buzzer)
     data->meta |= (1 << 0);
-  if(reminder_buzzer)
+  if (reminder_buzzer)
     data->meta |= (1 << 1);
-  if(reset_on_move)
+  if (reset_on_move)
     data->meta |= (1 << 2);
 
   reset_buzzer = false;
