@@ -11,7 +11,7 @@
 #define ROTATE_STATE 1
 
 #define TARGET_ANGLE 50.0f //degreese
-#define TIME 50000//7200000       //milliseconds
+#define TIME 7200000       //milliseconds
 #define REMIND_TIME 15000
 
 // PINS ------------------------------------------------------
@@ -28,7 +28,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 unsigned long previous_time = 0;
 unsigned long lcd_refresh = 0;
-unsigned long resting_time = 0;
+unsigned long display_time = 0;
 unsigned long meta_update_time = 0;
 
 float restingX, restingY, restingZ;
@@ -160,6 +160,7 @@ void loop()
   uint32_t bn = 0;
   uint32_t maxLatency = 0;
   uint32_t logTime = micros();
+  display_time = millis();
 
   while (1)
   {
@@ -201,7 +202,7 @@ void loop()
     {
       float angle = arcAngle(restingX, restingY, restingZ, rotationX, rotationY, rotationZ);
 
-      if ((millis() - lcd_refresh) > 1000)
+      if ((millis() - lcd_refresh) > 500)
       {
         lcd.clear();
         lcd.setCursor(0, 0);
@@ -220,51 +221,50 @@ void loop()
 
       if (angle > TARGET_ANGLE)
       {
-        lcd.noDisplay();
         state = COUNTING_STATE;
         tone(piezoPin, 200, 500);
         delay(1000);
         tone(piezoPin, 200, 500);
         reminder_buzzer = true;
         previous_time = millis();
+        display_time = millis();
       }
-      if (!isResting(scaledX, scaledY, scaledZ))
-      {
-        resting_time = millis();
-      }
-
-      if ((millis() - resting_time) > 1000)
-      {
-        rotationX = .2f * scaledX + (1 - .2f) * rotationX;
-        rotationY = .2f * scaledY + (1 - .2f) * rotationY;
-        rotationZ = .2f * scaledZ + (1 - .2f) * rotationZ;
-      }
+      
+      rotationX = .2f * scaledX + (1 - .2f) * rotationX;
+      rotationY = .2f * scaledY + (1 - .2f) * rotationY;
+      rotationZ = .2f * scaledZ + (1 - .2f) * rotationZ;
+    
     }
     break;
     case COUNTING_STATE:
     {
-      if ((millis() - lcd_refresh) > 1000)
-      {
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print((millis() - previous_time) / 1000);
-        lcd.print('/');
-        lcd.setCursor(0, 1);
-        lcd.print(TIME / 1000);
-        lcd_refresh = millis();
+    
+
+      if((millis() - display_time) > 10000){
+        lcd.noDisplay();
+      }
+      else{
+        if ((millis() - lcd_refresh) > 1000)
+        {
+          lcd.display();
+          lcd.clear();
+          lcd.setCursor(0, 0);
+          lcd.print((millis() - previous_time) / 1000);
+          lcd.print('/');
+          lcd.setCursor(0, 1);
+          lcd.print(TIME / 1000);
+          lcd_refresh = millis();
+        }
       }
 
       if ((millis() - previous_time) > TIME)
       {
+        lcd.display();
         tone(piezoPin, 1000, 500);
         state = ROTATE_STATE;
         rotationX = restingX;
         rotationY = restingY;
         rotationZ = restingZ;
-      }
-      //if (!isResting(scaledX, scaledY, scaledZ))
-      {
-        resting_time = millis();
       }
 
       movingAvg = (movingAvg * .9f) + (abs(1.0f - sqrt((scaledX * scaledX) + (scaledY * scaledY) + (scaledZ * scaledZ))) * (1 - .9f));
@@ -272,14 +272,12 @@ void loop()
       {
         reset_on_move = true;
         previous_time = millis();
+        display_time = millis();
       }
-
-      if ((millis() - resting_time) > 1000)
-      {
-        restingX = .2f * scaledX + (1 - .2f) * restingX;
-        restingY = .2f * scaledY + (1 - .2f) * restingY;
-        restingZ = .2f * scaledZ + (1 - .2f) * restingZ;
-      }
+      restingX = .2f * scaledX + (1 - .2f) * restingX;
+      restingY = .2f * scaledY + (1 - .2f) * restingY;
+      restingZ = .2f * scaledZ + (1 - .2f) * restingZ;
+    
     }
     break;
     }
