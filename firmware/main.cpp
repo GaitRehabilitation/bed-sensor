@@ -119,6 +119,12 @@ void setup()
   Wire.write(B00001000); //here is the byte for sensitivity (8g here)
   Wire.endTransmission(true);
 
+
+  Wire.beginTransmission(MPU_addr);
+  Wire.write(0x1B);
+  Wire.write(B00101000); //here is the byte for sensitivity (1000 degree sec)
+  Wire.endTransmission(true);
+
 }
 
 void loop()
