@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/firmware/zephyr" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/hardware/OPL_Kicad_Library" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/hardware/digikey-kicad-library" vcs="Git" />
-  </component>
-</project>

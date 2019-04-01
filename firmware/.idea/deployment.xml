@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="Local Container (bf78687b-a164-494e-91e8-8e15a3f5345b)">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Default (8ae90375-364f-4909-9663-2c06464c278c)">
     <serverData>
-      <paths name="Local Container (bf78687b-a164-494e-91e8-8e15a3f5345b)">
+      <paths name="Default (8ae90375-364f-4909-9663-2c06464c278c)">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/code" local="$PROJECT_DIR$" web="/" />
           </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-local-container" />
-          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

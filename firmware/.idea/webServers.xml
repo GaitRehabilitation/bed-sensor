@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="8ae90375-364f-4909-9663-2c06464c278c" name="Default (8ae90375-364f-4909-9663-2c06464c278c)" url="http:///">
+        <fileTransfer host="localhost" port="22000" privateKey="$PROJECT_DIR$/.vagrant/machines/default/virtualbox/private_key" rootFolder="/home/vagrant" accessType="SFTP" keyPair="true">
+          <option name="port" value="22000" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

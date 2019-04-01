@@ -19,6 +19,8 @@ services:
     ports:
       - "7776:22"
       - "7777:7777"
+    volumes:
+      - .:/home/debugger/code
     networks:
       devnet:
         ipv4_address: 172.16.8.2
