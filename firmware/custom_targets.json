@@ -1,5 +1,0 @@
-{
-	"MDBT50Q_1M": {
-		"inherits": ["NRF52840_DK"]
-	}
-}

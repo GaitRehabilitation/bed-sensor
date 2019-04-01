@@ -4,3 +4,6 @@
 [submodule "hardware/digikey-kicad-library"]
 	path = hardware/digikey-kicad-library
 	url = git@github.com:digikey/digikey-kicad-library.git
+[submodule "firmware/zephyr"]
+	path = firmware/zephyr
+	url = git@github.com:zephyrproject-rtos/zephyr.git
