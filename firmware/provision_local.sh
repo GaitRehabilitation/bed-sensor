@@ -1,1 +1,3 @@
-git clone https://github.com/zephyrproject-rtos/zephyr.git
+cd /home/vagrant/code
+west init
+west update

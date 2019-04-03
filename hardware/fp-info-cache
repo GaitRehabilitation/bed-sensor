@@ -1,4 +1,4 @@
-27153972732511323
+27155526887912042
 Air_Coils_SML_NEOSID
 Neosid_Air-Coil_SML_1turn_HDM0131A
 Neosid, Air-Coil, SML, 1turn, HDM0131A,
@@ -3227,13 +3227,6 @@ tact sw push 6mm
 4
 2
 Button_Switch_THT
-SW_PUSH_6mm_H8mm
-tactile push button, 6x6mm e.g. PHAP33xx series, height=8mm
-tact sw push 6mm
-0
-4
-2
-Button_Switch_THT
 SW_PUSH_6mm_h8mm
 tactile push button, 6x6mm e.g. PHAP33xx series, height=8mm
 tact sw push 6mm
@@ -3241,14 +3234,21 @@ tact sw push 6mm
 4
 2
 Button_Switch_THT
-SW_PUSH_6mm_h9.5mm
-tactile push button, 6x6mm e.g. PHAP33xx series, height=9.5mm
+SW_PUSH_6mm_H8mm
+tactile push button, 6x6mm e.g. PHAP33xx series, height=8mm
 tact sw push 6mm
 0
 4
 2
 Button_Switch_THT
 SW_PUSH_6mm_H9.5mm
+tactile push button, 6x6mm e.g. PHAP33xx series, height=9.5mm
+tact sw push 6mm
+0
+4
+2
+Button_Switch_THT
+SW_PUSH_6mm_h9.5mm
 tactile push button, 6x6mm e.g. PHAP33xx series, height=9.5mm
 tact sw push 6mm
 0
@@ -44156,13 +44156,6 @@ solder Pin_ press fit
 1
 1
 Connector_Pin
-Pin_D1.0mm_L10.0mm_LooseFit
-solder Pin_ diameter 1.0mm, hole diameter 1.2mm (loose fit), length 10.0mm
-solder Pin_ loose fit
-0
-1
-1
-Connector_Pin
 Pin_d1.0mm_L10.0mm_LooseFit
 solder Pin_ diameter 1.0mm, hole diameter 1.2mm (loose fit), length 10.0mm
 solder Pin_ loose fit
@@ -44170,9 +44163,9 @@ solder Pin_ loose fit
 1
 1
 Connector_Pin
-Pin_D1.1mm_L8.5mm_W2.5mm_FlatFork
-solder Pin_ with flat fork, hole diameter 1.1mm, length 8.5mm, width 2.5mm
-solder Pin_ with flat fork
+Pin_D1.0mm_L10.0mm_LooseFit
+solder Pin_ diameter 1.0mm, hole diameter 1.2mm (loose fit), length 10.0mm
+solder Pin_ loose fit
 0
 1
 1
@@ -44184,14 +44177,21 @@ solder Pin_ with flat fork
 1
 1
 Connector_Pin
-Pin_D1.1mm_L10.2mm_W3.5mm_Flat
-solder Pin_ with flat with hole, hole diameter 1.1mm, length 10.2mm, width 3.5mm
+Pin_D1.1mm_L8.5mm_W2.5mm_FlatFork
+solder Pin_ with flat fork, hole diameter 1.1mm, length 8.5mm, width 2.5mm
 solder Pin_ with flat fork
 0
 1
 1
 Connector_Pin
 Pin_d1.1mm_L10.2mm_W3.5mm_Flat
+solder Pin_ with flat with hole, hole diameter 1.1mm, length 10.2mm, width 3.5mm
+solder Pin_ with flat fork
+0
+1
+1
+Connector_Pin
+Pin_D1.1mm_L10.2mm_W3.5mm_Flat
 solder Pin_ with flat with hole, hole diameter 1.1mm, length 10.2mm, width 3.5mm
 solder Pin_ with flat fork
 0
@@ -44212,13 +44212,6 @@ solder Pin_ with flat fork
 1
 1
 Connector_Pin
-Pin_D1.2mm_L11.3mm_W3.0mm_Flat
-solder Pin_ with flat with hole, hole diameter 1.2mm, length 11.3mm, width 3.0mm
-solder Pin_ with flat fork
-0
-1
-1
-Connector_Pin
 Pin_d1.2mm_L11.3mm_W3.0mm_Flat
 solder Pin_ with flat with hole, hole diameter 1.2mm, length 11.3mm, width 3.0mm
 solder Pin_ with flat fork
@@ -44226,14 +44219,21 @@ solder Pin_ with flat fork
 1
 1
 Connector_Pin
-Pin_D1.3mm_L10.0mm_W3.5mm_Flat
-solder Pin_ with flat with hole, hole diameter 1.3mm, length 10.0mm, width 3.5mm, e.g. Ettinger 13.13.865, https://katalog.ettinger.de/#p=434
+Pin_D1.2mm_L11.3mm_W3.0mm_Flat
+solder Pin_ with flat with hole, hole diameter 1.2mm, length 11.3mm, width 3.0mm
 solder Pin_ with flat fork
 0
 1
 1
 Connector_Pin
 Pin_d1.3mm_L10.0mm_W3.5mm_Flat
+solder Pin_ with flat with hole, hole diameter 1.3mm, length 10.0mm, width 3.5mm, e.g. Ettinger 13.13.865, https://katalog.ettinger.de/#p=434
+solder Pin_ with flat fork
+0
+1
+1
+Connector_Pin
+Pin_D1.3mm_L10.0mm_W3.5mm_Flat
 solder Pin_ with flat with hole, hole diameter 1.3mm, length 10.0mm, width 3.5mm, e.g. Ettinger 13.13.865, https://katalog.ettinger.de/#p=434
 solder Pin_ with flat fork
 0
@@ -44254,14 +44254,14 @@ solder Pin_ pressfit
 1
 1
 Connector_Pin
-Pin_D1.3mm_L11.0mm_LooseFit
+Pin_d1.3mm_L11.0mm_LooseFit
 solder Pin_ diameter 1.3mm, hole diameter 1.5mm (loose fit), length 11.0mm
 solder Pin_ loose fit
 0
 1
 1
 Connector_Pin
-Pin_d1.3mm_L11.0mm_LooseFit
+Pin_D1.3mm_L11.0mm_LooseFit
 solder Pin_ diameter 1.3mm, hole diameter 1.5mm (loose fit), length 11.0mm
 solder Pin_ loose fit
 0
@@ -69356,6 +69356,13 @@ ICM-20948
 25
 25
 extra
+JSTPH2
+2-Pin JST PH Series Right-Angle Connector (+/- for batteries)
+
+0
+4
+4
+extra
 MDBT50Q-1M
 
 
@@ -78365,14 +78372,14 @@ Choke SMD
 2
 2
 Inductor_SMD
-L_12x12mm_h6mm
+L_12x12mm_H6mm
 Choke, SMD, 12x12mm 6mm height
 Choke SMD
 0
 2
 2
 Inductor_SMD
-L_12x12mm_H6mm
+L_12x12mm_h6mm
 Choke, SMD, 12x12mm 6mm height
 Choke SMD
 0
@@ -83125,14 +83132,14 @@ LED_Rectangular Rectangular  Rectangular size 5.0x2.0mm^2 2 pins
 2
 2
 LED_THT
-LED_Rectangular_W5.0mm_H2.0mm-3Pins
+LED_Rectangular_W5.0mm_H2.0mm-3pins
 LED_Rectangular, Rectangular,  Rectangular size 5.0x2.0mm^2, 3 pins, http://www.kingbright.com/attachments/file/psearch/000/00/00/L-169XCGDK(Ver.9B).pdf
 LED_Rectangular Rectangular  Rectangular size 5.0x2.0mm^2 3 pins
 0
 3
 3
 LED_THT
-LED_Rectangular_W5.0mm_H2.0mm-3pins
+LED_Rectangular_W5.0mm_H2.0mm-3Pins
 LED_Rectangular, Rectangular,  Rectangular size 5.0x2.0mm^2, 3 pins, http://www.kingbright.com/attachments/file/psearch/000/00/00/L-169XCGDK(Ver.9B).pdf
 LED_Rectangular Rectangular  Rectangular size 5.0x2.0mm^2 3 pins
 0
@@ -86065,14 +86072,14 @@ Fiberoptic Reciver RX Toshiba Toslink TORX170 TORX173 TORX193 TORX194
 6
 6
 OptoDevice
-Vishay_CAST-3pin
+Vishay_CAST-3Pin
 IR Receiver Vishay TSOP-xxxx, CAST package, see https://www.vishay.com/docs/82493/tsop311.pdf
 IRReceiverVishayTSOP-xxxx CAST
 0
 3
 3
 OptoDevice
-Vishay_CAST-3Pin
+Vishay_CAST-3pin
 IR Receiver Vishay TSOP-xxxx, CAST package, see https://www.vishay.com/docs/82493/tsop311.pdf
 IRReceiverVishayTSOP-xxxx CAST
 0
@@ -86086,13 +86093,6 @@ Vishay CNY70 refective photo coupler
 4
 4
 OptoDevice
-Vishay_MINICAST-3pin
-IR Receiver Vishay TSOP-xxxx, MINICAST package, see https://www.vishay.com/docs/82669/tsop32s40f.pdf
-IR Receiver Vishay TSOP-xxxx MINICAST
-0
-3
-3
-OptoDevice
 Vishay_MINICAST-3Pin
 IR Receiver Vishay TSOP-xxxx, MINICAST package, see https://www.vishay.com/docs/82669/tsop32s40f.pdf
 IR Receiver Vishay TSOP-xxxx MINICAST
@@ -86100,14 +86100,21 @@ IR Receiver Vishay TSOP-xxxx MINICAST
 3
 3
 OptoDevice
-Vishay_MINIMOLD-3pin
+Vishay_MINICAST-3pin
+IR Receiver Vishay TSOP-xxxx, MINICAST package, see https://www.vishay.com/docs/82669/tsop32s40f.pdf
+IR Receiver Vishay TSOP-xxxx MINICAST
+0
+3
+3
+OptoDevice
+Vishay_MINIMOLD-3Pin
 IR Receiver Vishay TSOP-xxxx, MINIMOLD package, see https://www.vishay.com/docs/82742/tsop331.pdf
 IR Receiver Vishay TSOP-xxxx MINIMOLD
 0
 3
 3
 OptoDevice
-Vishay_MINIMOLD-3Pin
+Vishay_MINIMOLD-3pin
 IR Receiver Vishay TSOP-xxxx, MINIMOLD package, see https://www.vishay.com/docs/82742/tsop331.pdf
 IR Receiver Vishay TSOP-xxxx MINIMOLD
 0
@@ -86226,13 +86233,6 @@ SMD SMT crystal oscillator hand-soldering
 4
 4
 Oscillator
-Oscillator_SMD_EuroQuartz_XO32-4Pin_3.2x2.5mm
-Miniature Crystal Clock Oscillator EuroQuartz XO32 series, http://cdn-reichelt.de/documents/datenblatt/B400/XO32.pdf, 3.2x2.5mm^2 package
-SMD SMT crystal oscillator
-0
-4
-4
-Oscillator
 Oscillator_SMD_EuroQuartz_XO32-4pin_3.2x2.5mm
 Miniature Crystal Clock Oscillator EuroQuartz XO32 series, http://cdn-reichelt.de/documents/datenblatt/B400/XO32.pdf, 3.2x2.5mm^2 package
 SMD SMT crystal oscillator
@@ -86240,9 +86240,9 @@ SMD SMT crystal oscillator
 4
 4
 Oscillator
-Oscillator_SMD_EuroQuartz_XO32-4Pin_3.2x2.5mm_HandSoldering
-Miniature Crystal Clock Oscillator EuroQuartz XO32 series, http://cdn-reichelt.de/documents/datenblatt/B400/XO32.pdf, hand-soldering, 3.2x2.5mm^2 package
-SMD SMT crystal oscillator hand-soldering
+Oscillator_SMD_EuroQuartz_XO32-4Pin_3.2x2.5mm
+Miniature Crystal Clock Oscillator EuroQuartz XO32 series, http://cdn-reichelt.de/documents/datenblatt/B400/XO32.pdf, 3.2x2.5mm^2 package
+SMD SMT crystal oscillator
 0
 4
 4
@@ -86254,9 +86254,9 @@ SMD SMT crystal oscillator hand-soldering
 4
 4
 Oscillator
-Oscillator_SMD_EuroQuartz_XO53-4pin_5.0x3.2mm
-Miniature Crystal Clock Oscillator EuroQuartz XO53 series, http://cdn-reichelt.de/documents/datenblatt/B400/XO53.pdf, 5.0x3.2mm^2 package
-SMD SMT crystal oscillator
+Oscillator_SMD_EuroQuartz_XO32-4Pin_3.2x2.5mm_HandSoldering
+Miniature Crystal Clock Oscillator EuroQuartz XO32 series, http://cdn-reichelt.de/documents/datenblatt/B400/XO32.pdf, hand-soldering, 3.2x2.5mm^2 package
+SMD SMT crystal oscillator hand-soldering
 0
 4
 4
@@ -86268,9 +86268,9 @@ SMD SMT crystal oscillator
 4
 4
 Oscillator
-Oscillator_SMD_EuroQuartz_XO53-4pin_5.0x3.2mm_HandSoldering
-Miniature Crystal Clock Oscillator EuroQuartz XO53 series, http://cdn-reichelt.de/documents/datenblatt/B400/XO53.pdf, hand-soldering, 5.0x3.2mm^2 package
-SMD SMT crystal oscillator hand-soldering
+Oscillator_SMD_EuroQuartz_XO53-4pin_5.0x3.2mm
+Miniature Crystal Clock Oscillator EuroQuartz XO53 series, http://cdn-reichelt.de/documents/datenblatt/B400/XO53.pdf, 5.0x3.2mm^2 package
+SMD SMT crystal oscillator
 0
 4
 4
@@ -86282,14 +86282,21 @@ SMD SMT crystal oscillator hand-soldering
 4
 4
 Oscillator
-Oscillator_SMD_EuroQuartz_XO91-4pin_7.0x5.0mm
+Oscillator_SMD_EuroQuartz_XO53-4pin_5.0x3.2mm_HandSoldering
+Miniature Crystal Clock Oscillator EuroQuartz XO53 series, http://cdn-reichelt.de/documents/datenblatt/B400/XO53.pdf, hand-soldering, 5.0x3.2mm^2 package
+SMD SMT crystal oscillator hand-soldering
+0
+4
+4
+Oscillator
+Oscillator_SMD_EuroQuartz_XO91-4Pin_7.0x5.0mm
 Miniature Crystal Clock Oscillator EuroQuartz XO91 series, http://cdn-reichelt.de/documents/datenblatt/B400/XO91.pdf, 7.0x5.0mm^2 package
 SMD SMT crystal oscillator
 0
 4
 4
 Oscillator
-Oscillator_SMD_EuroQuartz_XO91-4Pin_7.0x5.0mm
+Oscillator_SMD_EuroQuartz_XO91-4pin_7.0x5.0mm
 Miniature Crystal Clock Oscillator EuroQuartz XO91 series, http://cdn-reichelt.de/documents/datenblatt/B400/XO91.pdf, 7.0x5.0mm^2 package
 SMD SMT crystal oscillator
 0
@@ -86324,13 +86331,6 @@ SMD SMT crystal oscillator
 6
 6
 Oscillator
-Oscillator_SMD_Fordahl_DFAS2-4pin_7.3x5.1mm
-Mminiature Crystal Clock Oscillator TXCO Fordahl DFA S2-KS/LS/US, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 7.3x5.1mm^2 package
-SMD SMT crystal oscillator
-0
-4
-4
-Oscillator
 Oscillator_SMD_Fordahl_DFAS2-4Pin_7.3x5.1mm
 Mminiature Crystal Clock Oscillator TXCO Fordahl DFA S2-KS/LS/US, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 7.3x5.1mm^2 package
 SMD SMT crystal oscillator
@@ -86338,9 +86338,9 @@ SMD SMT crystal oscillator
 4
 4
 Oscillator
-Oscillator_SMD_Fordahl_DFAS2-4pin_7.3x5.1mm_HandSoldering
-Mminiature Crystal Clock Oscillator TXCO Fordahl DFA S2-KS/LS/US, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, hand-soldering, 7.3x5.1mm^2 package
-SMD SMT crystal oscillator hand-soldering
+Oscillator_SMD_Fordahl_DFAS2-4pin_7.3x5.1mm
+Mminiature Crystal Clock Oscillator TXCO Fordahl DFA S2-KS/LS/US, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 7.3x5.1mm^2 package
+SMD SMT crystal oscillator
 0
 4
 4
@@ -86352,14 +86352,21 @@ SMD SMT crystal oscillator hand-soldering
 4
 4
 Oscillator
-Oscillator_SMD_Fordahl_DFAS3-4pin_9.1x7.2mm
+Oscillator_SMD_Fordahl_DFAS2-4pin_7.3x5.1mm_HandSoldering
+Mminiature Crystal Clock Oscillator TXCO Fordahl DFA S2-KS/LS/US, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, hand-soldering, 7.3x5.1mm^2 package
+SMD SMT crystal oscillator hand-soldering
+0
+4
+4
+Oscillator
+Oscillator_SMD_Fordahl_DFAS3-4Pin_9.1x7.2mm
 Miniature Crystal Clock Oscillator TXCO Fordahl DFA S3-KS/LS/US, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 9.1x7.2mm^2 package
 SMD SMT crystal oscillator
 0
 4
 4
 Oscillator
-Oscillator_SMD_Fordahl_DFAS3-4Pin_9.1x7.2mm
+Oscillator_SMD_Fordahl_DFAS3-4pin_9.1x7.2mm
 Miniature Crystal Clock Oscillator TXCO Fordahl DFA S3-KS/LS/US, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 9.1x7.2mm^2 package
 SMD SMT crystal oscillator
 0
@@ -86380,14 +86387,14 @@ SMD SMT crystal oscillator hand-soldering
 4
 4
 Oscillator
-Oscillator_SMD_Fordahl_DFAS7-4pin_19.9x12.9mm
+Oscillator_SMD_Fordahl_DFAS7-4Pin_19.9x12.9mm
 Miniature Crystal Clock Oscillator TXCO Fordahl DFA S7-K/L, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 19.9x12.9mm^2 package
 SMD SMT crystal oscillator
 0
 4
 4
 Oscillator
-Oscillator_SMD_Fordahl_DFAS7-4Pin_19.9x12.9mm
+Oscillator_SMD_Fordahl_DFAS7-4pin_19.9x12.9mm
 Miniature Crystal Clock Oscillator TXCO Fordahl DFA S7-K/L, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 19.9x12.9mm^2 package
 SMD SMT crystal oscillator
 0
@@ -86408,14 +86415,14 @@ SMD SMT crystal oscillator hand-soldering
 4
 4
 Oscillator
-Oscillator_SMD_Fordahl_DFAS11-4pin_7.0x5.0mm
+Oscillator_SMD_Fordahl_DFAS11-4Pin_7.0x5.0mm
 Miniature Crystal Clock Oscillator TXCO Fordahl DFA S11-OV/UOV, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 7.0x5.0mm^2 package
 SMD SMT crystal oscillator
 0
 4
 4
 Oscillator
-Oscillator_SMD_Fordahl_DFAS11-4Pin_7.0x5.0mm
+Oscillator_SMD_Fordahl_DFAS11-4pin_7.0x5.0mm
 Miniature Crystal Clock Oscillator TXCO Fordahl DFA S11-OV/UOV, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 7.0x5.0mm^2 package
 SMD SMT crystal oscillator
 0
@@ -86436,14 +86443,14 @@ SMD SMT crystal oscillator hand-soldering
 4
 4
 Oscillator
-Oscillator_SMD_Fordahl_DFAS15-4pin_5.0x3.2mm
+Oscillator_SMD_Fordahl_DFAS15-4Pin_5.0x3.2mm
 Ultraminiature Crystal Clock Oscillator TXCO Fordahl DFA S15-OV/UOV, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 5.0x3.2mm^2 package
 SMD SMT crystal oscillator
 0
 4
 4
 Oscillator
-Oscillator_SMD_Fordahl_DFAS15-4Pin_5.0x3.2mm
+Oscillator_SMD_Fordahl_DFAS15-4pin_5.0x3.2mm
 Ultraminiature Crystal Clock Oscillator TXCO Fordahl DFA S15-OV/UOV, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 5.0x3.2mm^2 package
 SMD SMT crystal oscillator
 0
@@ -86464,13 +86471,6 @@ SMD SMT crystal oscillator hand-soldering
 4
 4
 Oscillator
-Oscillator_SMD_IQD_IQXO70-4Pin_7.5x5.0mm
-IQD Crystal Clock Oscillator IQXO-70, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 7.5x5.0mm^2 package
-SMD SMT crystal oscillator
-0
-4
-4
-Oscillator
 Oscillator_SMD_IQD_IQXO70-4pin_7.5x5.0mm
 IQD Crystal Clock Oscillator IQXO-70, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 7.5x5.0mm^2 package
 SMD SMT crystal oscillator
@@ -86478,14 +86478,21 @@ SMD SMT crystal oscillator
 4
 4
 Oscillator
-Oscillator_SMD_IQD_IQXO70-4Pin_7.5x5.0mm_HandSoldering
+Oscillator_SMD_IQD_IQXO70-4Pin_7.5x5.0mm
+IQD Crystal Clock Oscillator IQXO-70, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, 7.5x5.0mm^2 package
+SMD SMT crystal oscillator
+0
+4
+4
+Oscillator
+Oscillator_SMD_IQD_IQXO70-4pin_7.5x5.0mm_HandSoldering
 IQD Crystal Clock Oscillator IQXO-70, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, hand-soldering, 7.5x5.0mm^2 package
 SMD SMT crystal oscillator hand-soldering
 0
 4
 4
 Oscillator
-Oscillator_SMD_IQD_IQXO70-4pin_7.5x5.0mm_HandSoldering
+Oscillator_SMD_IQD_IQXO70-4Pin_7.5x5.0mm_HandSoldering
 IQD Crystal Clock Oscillator IQXO-70, http://www.iqdfrequencyproducts.com/products/details/iqxo-70-11-30.pdf, hand-soldering, 7.5x5.0mm^2 package
 SMD SMT crystal oscillator hand-soldering
 0
@@ -86506,14 +86513,14 @@ SMD SMT crystal oscillator
 4
 4
 Oscillator
-Oscillator_SMD_SeikoEpson_SG210-4Pin_2.5x2.0mm_HandSoldering
+Oscillator_SMD_SeikoEpson_SG210-4pin_2.5x2.0mm_HandSoldering
 SMD Crystal Oscillator Seiko Epson SG-210 https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-210SED, hand-soldering, 2.5x2.0mm^2 package
 SMD SMT crystal oscillator hand-soldering
 0
 4
 4
 Oscillator
-Oscillator_SMD_SeikoEpson_SG210-4pin_2.5x2.0mm_HandSoldering
+Oscillator_SMD_SeikoEpson_SG210-4Pin_2.5x2.0mm_HandSoldering
 SMD Crystal Oscillator Seiko Epson SG-210 https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-210SED, hand-soldering, 2.5x2.0mm^2 package
 SMD SMT crystal oscillator hand-soldering
 0
@@ -86541,14 +86548,14 @@ SMD SMT crystal oscillator
 4
 4
 Oscillator
-Oscillator_SMD_SeikoEpson_SG8002CA-4pin_7.0x5.0mm_HandSoldering
+Oscillator_SMD_SeikoEpson_SG8002CA-4Pin_7.0x5.0mm_HandSoldering
 SMD Crystal Oscillator Seiko Epson SG-8002CA https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, hand-soldering, 7.0x5.0mm^2 package
 SMD SMT crystal oscillator hand-soldering
 0
 4
 4
 Oscillator
-Oscillator_SMD_SeikoEpson_SG8002CA-4Pin_7.0x5.0mm_HandSoldering
+Oscillator_SMD_SeikoEpson_SG8002CA-4pin_7.0x5.0mm_HandSoldering
 SMD Crystal Oscillator Seiko Epson SG-8002CA https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, hand-soldering, 7.0x5.0mm^2 package
 SMD SMT crystal oscillator hand-soldering
 0
@@ -86583,14 +86590,14 @@ SMD SMT crystal oscillator hand-soldering
 4
 4
 Oscillator
-Oscillator_SMD_SeikoEpson_SG8002JA-4Pin_14.0x8.7mm
+Oscillator_SMD_SeikoEpson_SG8002JA-4pin_14.0x8.7mm
 SMD Crystal Oscillator Seiko Epson SG-8002JA https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, 14.0x8.7mm^2 package
 SMD SMT crystal oscillator
 0
 4
 4
 Oscillator
-Oscillator_SMD_SeikoEpson_SG8002JA-4pin_14.0x8.7mm
+Oscillator_SMD_SeikoEpson_SG8002JA-4Pin_14.0x8.7mm
 SMD Crystal Oscillator Seiko Epson SG-8002JA https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, 14.0x8.7mm^2 package
 SMD SMT crystal oscillator
 0
@@ -86611,13 +86618,6 @@ SMD SMT crystal oscillator hand-soldering
 4
 4
 Oscillator
-Oscillator_SMD_SeikoEpson_SG8002JC-4Pin_10.5x5.0mm
-SMD Crystal Oscillator Seiko Epson SG-8002JC https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, 10.5x5.0mm^2 package
-SMD SMT crystal oscillator
-0
-4
-4
-Oscillator
 Oscillator_SMD_SeikoEpson_SG8002JC-4pin_10.5x5.0mm
 SMD Crystal Oscillator Seiko Epson SG-8002JC https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, 10.5x5.0mm^2 package
 SMD SMT crystal oscillator
@@ -86625,9 +86625,9 @@ SMD SMT crystal oscillator
 4
 4
 Oscillator
-Oscillator_SMD_SeikoEpson_SG8002JC-4Pin_10.5x5.0mm_HandSoldering
-SMD Crystal Oscillator Seiko Epson SG-8002JC https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, hand-soldering, 10.5x5.0mm^2 package
-SMD SMT crystal oscillator hand-soldering
+Oscillator_SMD_SeikoEpson_SG8002JC-4Pin_10.5x5.0mm
+SMD Crystal Oscillator Seiko Epson SG-8002JC https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, 10.5x5.0mm^2 package
+SMD SMT crystal oscillator
 0
 4
 4
@@ -86639,9 +86639,9 @@ SMD SMT crystal oscillator hand-soldering
 4
 4
 Oscillator
-Oscillator_SMD_SeikoEpson_SG8002LB-4Pin_5.0x3.2mm
-SMD Crystal Oscillator Seiko Epson SG-8002LB https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, 5.0x3.2mm^2 package
-SMD SMT crystal oscillator
+Oscillator_SMD_SeikoEpson_SG8002JC-4Pin_10.5x5.0mm_HandSoldering
+SMD Crystal Oscillator Seiko Epson SG-8002JC https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, hand-soldering, 10.5x5.0mm^2 package
+SMD SMT crystal oscillator hand-soldering
 0
 4
 4
@@ -86653,14 +86653,21 @@ SMD SMT crystal oscillator
 4
 4
 Oscillator
-Oscillator_SMD_SeikoEpson_SG8002LB-4pin_5.0x3.2mm_HandSoldering
+Oscillator_SMD_SeikoEpson_SG8002LB-4Pin_5.0x3.2mm
+SMD Crystal Oscillator Seiko Epson SG-8002LB https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, 5.0x3.2mm^2 package
+SMD SMT crystal oscillator
+0
+4
+4
+Oscillator
+Oscillator_SMD_SeikoEpson_SG8002LB-4Pin_5.0x3.2mm_HandSoldering
 SMD Crystal Oscillator Seiko Epson SG-8002LB https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, hand-soldering, 5.0x3.2mm^2 package
 SMD SMT crystal oscillator hand-soldering
 0
 4
 4
 Oscillator
-Oscillator_SMD_SeikoEpson_SG8002LB-4Pin_5.0x3.2mm_HandSoldering
+Oscillator_SMD_SeikoEpson_SG8002LB-4pin_5.0x3.2mm_HandSoldering
 SMD Crystal Oscillator Seiko Epson SG-8002LB https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, hand-soldering, 5.0x3.2mm^2 package
 SMD SMT crystal oscillator hand-soldering
 0
@@ -107457,14 +107464,14 @@ Finder 32.21-x300 Relay SPST
 4
 4
 Relay_THT
-Relay_SPST_Omron-G5Q-1A
+Relay_SPST_OMRON-G5Q-1A
 Relay SPST-NO Omron Serie G5Q, http://omronfs.omron.com/en_US/ecb/products/pdf/en-g5q.pdf
 Relay SPST-NO Omron Serie G5Q
 0
 4
 4
 Relay_THT
-Relay_SPST_OMRON-G5Q-1A
+Relay_SPST_Omron-G5Q-1A
 Relay SPST-NO Omron Serie G5Q, http://omronfs.omron.com/en_US/ecb/products/pdf/en-g5q.pdf
 Relay SPST-NO Omron Serie G5Q
 0
@@ -109900,14 +109907,14 @@ Bluetooth Module
 30
 30
 RF_Module
-CYBLE-21pin-10x10mm
+CYBLE-21Pin-10x10mm
 Cypress EZ-BLE PRoC Module (Bluetooth Smart) 21 Pin Module
 Cypress BT Bluetooth
 0
 21
 21
 RF_Module
-CYBLE-21Pin-10x10mm
+CYBLE-21pin-10x10mm
 Cypress EZ-BLE PRoC Module (Bluetooth Smart) 21 Pin Module
 Cypress BT Bluetooth
 0

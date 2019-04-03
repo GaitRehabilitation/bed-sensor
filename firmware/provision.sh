@@ -8,16 +8,17 @@ export GCC_ARM_NAME=gcc-arm-none-eabi-7-2018-q2-update
 apt-get update
 apt-get install -y g++ cmake gdb gdbserver
 
-dpkg --add-architecture i386 && \
-	apt-get -y update && \
-	apt-get -y upgrade && \
-	apt-get install --no-install-recommends -y \
-	gnupg \
-	ca-certificates && \
-	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-	echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | tee /etc/apt/sources.list.d/mono-official-stable.list && \
-	apt-get -y update && \
-	apt-get install --no-install-recommends -y \
+dpkg --add-architecture i386
+apt-get -y update
+apt-get -y upgrade
+
+apt-get install --no-install-recommends -y gnupg  ca-certificates
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+
+echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | tee /etc/apt/sources.list.d/mono-official-stable.list
+apt-get -y update
+
+apt-get install --no-install-recommends -y \
 	autoconf \
 	automake \
 	build-essential \
@@ -60,13 +61,13 @@ dpkg --add-architecture i386 && \
 	wget \
 	x11vnc \
 	xvfb \
-	xz-utils && \
-	wget -O dtc.deb http://security.ubuntu.com/ubuntu/pool/main/d/device-tree-compiler/device-tree-compiler_1.4.7-1_amd64.deb && \
-	dpkg -i dtc.deb && \
-	wget -O renode.deb https://github.com/renode/renode/releases/download/v1.6.2/renode_1.6.2_amd64.deb && \
-	apt install -y ./renode.deb && \
-	rm dtc.deb renode.deb && \
-	rm -rf /var/lib/apt/lists/*
+	xz-utils
+
+wget -O dtc.deb http://security.ubuntu.com/ubuntu/pool/main/d/device-tree-compiler/device-tree-compiler_1.4.7-1_amd64.deb
+dpkg -i dtc.deb
+
+wget -O renode.deb https://github.com/renode/renode/releases/download/v1.6.2/renode_1.6.2_amd64.deb
+apt install -y ./renode.deb
 
 wget -q "https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-sdk-${ZSDK_VERSION}-setup.run" && \
 	sh "zephyr-sdk-${ZSDK_VERSION}-setup.run" --quiet -- -d /opt/toolchains/zephyr-sdk-${ZSDK_VERSION} && \
@@ -95,5 +96,3 @@ echo "export GNUARMEMB_TOOLCHAIN_PATH=/opt/toolchains/${GCC_ARM_NAME}" >> /etc/p
 echo "export PKG_CONFIG_PATH=/usr/lib/i386-linux-gnu/pkgconfig" >> /etc/profile
 echo "export DISPLAY=:0" >> /etc/profile
 echo "export ZEPHYR_BASE=~/zephyr" >> /etc/profile
-
-localectl set-locale LANG=en_US.UTF-8
