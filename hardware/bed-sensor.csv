@@ -1,30 +1,29 @@
-Designator,MPN/Seeed SKU,Qty,Link
-U7,Bosch_LGA-8_2x2.5mm_P0.65mm_ClockwisePinNumbering,1,BMP280
-U6,ICM-20948,1,ICM-20948
-U4,MDBT50Q-1M,1,MDBT50Q-1M
-U3,SOT-23-5,1,AP2112K-3.3
-U2,SOT-23-5,1,TLV70218_SOT23-5
-U1,SOT-23-5,1,MCP73831-2-OT
-SW1,Panasonic_EVQPUJ_EVQPUA,1,SW_Push
-J3,HRS_DM3AT-SF-PEJM5,1,DM3AT-SF-PEJM5
-J2,PinHeader_2x05_P1.27mm_Vertical_SMD,1,Conn_ARM_JTAG_SWD_10
-J1,USB_Mini-B,1,USB_B_Mini
-D1,D_0805,1,D_Schottky
-"C16,C15,C14,C13,C9,C5,C4",C_0603_1608Metric,7,.1uF
-C12,C_0603_1608Metric,1,100PF
-"C11,C10",C_0603_1608Metric,2,1uF
-"C8,C7",C_0603_1608Metric,2,12pF
-"C6,C3,C2,C1",C_0805_2012Metric,4,10uF
-D2,C_0603_1608Metric,1,LED
-Q1,SOT-23-3,1,Q_PMOS_GSD
-U5,VSSOP-8_2.3x2mm_P0.5mm,1,PCA9306
-Y1,X2-SMD-3.2X1.5X0.55MM,1,32.768
-BZ1,Buzzer_Murata_PKMCS0909E4000-R1,1,Buzzer
-R1,Fuse_0603_1608Metric,1,100K
-R2,Fuse_0603_1608Metric,1,100k
-"R3,R4",Fuse_0603_1608Metric,2,22
-R5,Fuse_0603_1608Metric,1,4.7k
-R6,Fuse_0603_1608Metric,1,1K
-"R7,R9,R10,R11,R12,R13",Fuse_0603_1608Metric,6,4.7K
-R8,Fuse_0603_1608Metric,1,200k
-J4,PinHeader_1x02_P2.54mm_Vertical,1,Conn_01x02
+Id,Designator,MPN/Seeed SKU,Qty,Link
+1,"R14,R16,R15",CL10B331KB8NNNC,3,http://file.elecfans.com/web1/M00/5C/4C/o4YBAFt04FWAbe4gAAKwH_HJHDI122.pdf
+2,D3,AAA3528ESGCT,1,https://www.mouser.com/ProductDetail/Kingbright/AAA3528ESGCT?qs=HXFqYaX1Q2ztii0bK20PQg%3D%3D
+3,U4,113990582,1,https://www.mouser.com/ProductDetail/Seeed-Studio/113990582?qs=sGAEpiMZZMsGelYiB%252BjhZoug4L%2FWODSMtK%252B2PPUqfs4XRnUiIJJ2hg%3D%3D
+4,"C1,C6,C3,C2",CL21A106KQCLNNC,4,http://www.samsungsem.com/kr/support/product-search/mlcc/CL21A106KQCLNNC.jsp
+5,C12,CL10C101JB8NNNC,1,http://file.elecfans.com/web1/M00/5C/4C/o4YBAFt04FWAbe4gAAKwH_HJHDI122.pdf
+6,"R9,R7,R10,R11,R12,R13,R5",RC0603JR-074K7L,7,http://www.yageo.com/documents/recent/PYu-RC_Group_51_RoHS_L_9.pdf
+7,U7,BMP280,1,https://www.mouser.com/ProductDetail/Bosch-Sensortec/BMP280?qs=sGAEpiMZZMtIHXa%252BTo%2Fr2eGxaEtuZJz3i3U5QWpV0wc%3D
+8,U6,ICM-20948,1,https://www.mouser.com/ProductDetail/TDK-InvenSense/ICM-20948?qs=sGAEpiMZZMve4%2FbfQkoj%252BJwQU4m%252BZkcVSWoSqbKWYiU%3D
+9,U3,AP2112K-3.3TRG1 ,1,https://www.mouser.com/ProductDetail/Diodes-Incorporated/AP2112K-33TRG1?qs=%2Fha2pyFadugKN4ES11GMq2snst8wH3yje9KIABR%252BTfzTosnOVDqX4A%3D%3D
+10,U2,TLV70218DBVT,1,https://www.mouser.com/ProductDetail/Texas-Instruments/TLV70218DBVT?qs=sGAEpiMZZMsGz1a6aV8DcK8%2FNbLQFTsJm3OjJFBXqD8%3D
+11,U1,MCP73831T-2ACI/OT ,1,https://www.mouser.com/ProductDetail/Microchip-Technology/MCP73831T-2ACI-OT?qs=sGAEpiMZZMtLck3p7ZBovc%252bIEf4wKPGR
+12,SW1,EVQ-PUA02K,1,https://www.digikey.com/product-detail/en/panasonic-electronic-components/EVQ-PUA02K/P10847STR-ND/286334
+13,J3,DM3AT-SF-PEJM5,1,https://www.digikey.com/product-detail/en/hirose-electric-co-ltd/DM3AT-SF-PEJM5/HR1964CT-ND/2533566
+14,J2,M50-3600542R ,1,https://www.mouser.com/ProductDetail/Harwin/M50-3600542R?qs=sGAEpiMZZMvxO7XFMojgsDrZBswRTuB8
+15,J1,10118194-0001LF,1,https://www.digikey.com/product-detail/en/amphenol-icc-fci/10118194-0001LF/609-4618-2-ND/2785389
+16,"C16,C15,C14,C13,C9,C5,C4",C0603C104K5RACAUTO,7,http://capacitoredge.kemet.com/capedge2/DataSheet?pn=C0603C104K5RACAUTO
+17,"C11,C10",GCM188R71E105KA64D,2,http://www.murata.com/~/media/webrenewal/support/library/catalog/products/capacitor/mlcc/c03e.ashx
+18,"C8,C7",GCM1885C1H120JA16D,2,http://file.elecfans.com/web1/M00/7E/AD/pIYBAFwXWy6AY2cmAF9Vn-aOrDA369.pdf?filename=%E6%B1%BD%E8%BD%A6%E7%BA%A7%E8%A7%84%E6%A0%BC%E4%B9%A6.pdf
+19,Q1,DMG2305UX-7,1,https://www.diodes.com/assets/Datasheets/DMG2305UX.pdf
+20,U5,PCA9306DCUR,1,http://www.ti.com/lit/ds/symlink/pca9306.pdf
+21,BZ1,PKMCS0909E4000-R1 ,1,https://www.mouser.com/ProductDetail/Murata-Electronics/PKMCS0909E4000-R1?qs=%2Fha2pyFadui1K1i3N8Z4%252B6UdmS4fHNa%252B1slL2yR6NuYv%2FrKDpC%252BFqjY9gZkiJnLr
+23,D1,MBR120VLSFT3G,1,https://www.mouser.com/ProductDetail/ON-Semiconductor/MBR120VLSFT3G?qs=sGAEpiMZZMtQ8nqTKtFS%2FCKUxMvjsmGz%2FCigMfHc%252BQw%3D
+24,D2,599-0020-007F ,1,https://www.mouser.com/ProductDetail/Dialight/599-0020-007F?qs=sGAEpiMZZMvyj6n1w4pZD6eAxfjFR14DrWbMj3eap579qUWH%2FU8BPg%3D%3D
+25,"R1,R2,R17,R18",RC0603JR-07100KL,4,http://www.yageo.com/documents/recent/PYu-RC_Group_51_RoHS_L_9.pdf
+27,"R3,R4",301010289,2,https://statics3.seeedstudio.com/images/opl/datasheet/0010010P1.pdf
+29,R6,CRCW06031K00FKEA,1,http://www.vishay.com/docs/20035/dcrcwe3.pdf
+30,R8,301010863,1,https://statics3.seeedstudio.com/images/opl/datasheet/resistance-series.pdf
+31,Y1,FC-135 32.7680KA-AC3 ,1,https://www.mouser.com/ProductDetail/Epson-Timing/FC-135-327680KA-AC3?qs=sGAEpiMZZMsBj6bBr9Q9aZLqXgWtLYAXwYm2VNVNmc4%3D

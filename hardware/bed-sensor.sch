@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:bed-sensor-cache
-EELAYER 29 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -100,7 +100,7 @@ AR Path="/5C948E2D" Ref="D1"  Part="1"
 AR Path="/5C947A0A/5C948E2D" Ref="D?"  Part="1" 
 F 0 "D1" H 1250 1234 50  0000 C CNN
 F 1 "D_Schottky" H 1250 1325 50  0000 C CNN
-F 2 "Diodes_SMD:D_0805" H 1250 1450 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 1250 1450 50  0001 C CNN
 F 3 "~" H 1250 1450 50  0001 C CNN
 	1    1250 1450
 	-1   0    0    1   
@@ -524,7 +524,7 @@ U 1 1 5C9529E0
 P 2100 3050
 F 0 "D2" V 2045 3128 50  0000 L CNN
 F 1 "LED" V 2136 3128 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 2100 3050 50  0001 C CNN
+F 2 "Diode_SMD:D_0603_1608Metric" H 2100 3050 50  0001 C CNN
 F 3 "~" H 2100 3050 50  0001 C CNN
 	1    2100 3050
 	0    1    1    0   
@@ -1103,19 +1103,19 @@ SCL_MPU
 Text GLabel 5300 2950 2    50   Input ~ 0
 SDA_MPU
 $Comp
-L bed-sensor-rescue:USB_B_Mini-Connector_Specialized-bed-sensor-rescue J1
+L bed-sensor-rescue:USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue J1
 U 1 1 5CA6C0FF
 P 1100 5800
 F 0 "J1" H 1157 6267 50  0000 C CNN
 F 1 "USB_B_Mini" H 1157 6176 50  0000 C CNN
-F 2 "Connectors:USB_Mini-B" H 1250 5750 50  0001 C CNN
+F 2 "digikey-footprints:USB_Micro_B_Female_10118194-0001LF" H 1250 5750 50  0001 C CNN
 F 3 "~" H 1250 5750 50  0001 C CNN
 	1    1100 5800
 	1    0    0    -1  
 $EndComp
 Connection ~ 1000 6200
 $Comp
-L bed-sensor-rescue:Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue J2
+L bed-sensor-rescue:Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue J2
 U 1 1 5C9E80F8
 P 2950 6150
 F 0 "J2" H 2507 6196 50  0000 R CNN
@@ -1258,11 +1258,11 @@ F 3 "" H 4750 5850 50  0001 C CNN
 	1    4750 5850
 	0    -1   -1   0   
 $EndComp
-Text GLabel 3550 3000 0    50   Input ~ 0
+Text GLabel 3550 1800 0    50   Input ~ 0
 SD_MISO
 Text GLabel 3550 2800 0    50   Input ~ 0
 SD_CS
-Text GLabel 3550 3100 0    50   Input ~ 0
+Text GLabel 3550 2100 0    50   Input ~ 0
 SD_MOSI
 Text GLabel 3550 3200 0    50   Input ~ 0
 SD_SCK
@@ -1409,7 +1409,7 @@ F 3 "" H 10150 3950 50  0001 C CNN
 $EndComp
 Text GLabel 3550 1500 0    50   Input ~ 0
 BMP_SCL
-Text GLabel 3550 1600 0    50   Input ~ 0
+Text GLabel 3550 2000 0    50   Input ~ 0
 BMP_SDA
 $Comp
 L Device:Buzzer BZ1
@@ -1541,4 +1541,122 @@ F 3 "" H 9400 2900 50  0001 C CNN
 	1    9400 2900
 	1    0    0    -1  
 $EndComp
+$Comp
+L Device:LED_RCGB D3
+U 1 1 5CA5A38C
+P 5800 5600
+F 0 "D3" V 5846 5270 50  0000 R CNN
+F 1 "LED_RCGB" V 5755 5270 50  0000 R CNN
+F 2 "LED_SMD:LED_Kingbright_AAA3528ESGCT" H 5800 5550 50  0001 C CNN
+F 3 "~" H 5800 5550 50  0001 C CNN
+	1    5800 5600
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R14
+U 1 1 5CA6159F
+P 5600 5250
+F 0 "R14" H 5670 5296 50  0000 L CNN
+F 1 "330" H 5670 5205 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 5530 5250 50  0001 C CNN
+F 3 "~" H 5600 5250 50  0001 C CNN
+	1    5600 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R15
+U 1 1 5CA636F3
+P 5800 5250
+F 0 "R15" H 5870 5296 50  0000 L CNN
+F 1 "330" H 5870 5205 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 5730 5250 50  0001 C CNN
+F 3 "~" H 5800 5250 50  0001 C CNN
+	1    5800 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R16
+U 1 1 5CA63769
+P 6000 5250
+F 0 "R16" H 6070 5296 50  0000 L CNN
+F 1 "330" H 6070 5205 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 5930 5250 50  0001 C CNN
+F 3 "~" H 6000 5250 50  0001 C CNN
+	1    6000 5250
+	1    0    0    -1  
+$EndComp
+Text GLabel 3550 3600 0    50   Input ~ 0
+R_LED
+Text GLabel 3550 3800 0    50   Input ~ 0
+G_LED
+Text GLabel 3550 3400 0    50   Input ~ 0
+B_LED
+$Comp
+L power:GND #PWR0167
+U 1 1 5CA63A2B
+P 5800 5800
+F 0 "#PWR0167" H 5800 5550 50  0001 C CNN
+F 1 "GND" H 5805 5627 50  0000 C CNN
+F 2 "" H 5800 5800 50  0001 C CNN
+F 3 "" H 5800 5800 50  0001 C CNN
+	1    5800 5800
+	1    0    0    -1  
+$EndComp
+Text GLabel 5600 5100 1    50   Input ~ 0
+R_LED
+Text GLabel 5800 5100 1    50   Input ~ 0
+G_LED
+Text GLabel 6000 5100 1    50   Input ~ 0
+B_LED
+$Comp
+L Device:R R17
+U 1 1 5CA79672
+P 7150 5050
+F 0 "R17" H 7220 5096 50  0000 L CNN
+F 1 "100k" H 7220 5005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 7080 5050 50  0001 C CNN
+F 3 "~" H 7150 5050 50  0001 C CNN
+	1    7150 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R18
+U 1 1 5CA796FA
+P 7150 5350
+F 0 "R18" H 7220 5396 50  0000 L CNN
+F 1 "100k" H 7220 5305 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 7080 5350 50  0001 C CNN
+F 3 "~" H 7150 5350 50  0001 C CNN
+	1    7150 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+BATT #PWR0168
+U 1 1 5CA7B569
+P 7150 4900
+F 0 "#PWR0168" H 7150 4750 50  0001 C CNN
+F 1 "+BATT" H 7165 5073 50  0000 C CNN
+F 2 "" H 7150 4900 50  0001 C CNN
+F 3 "" H 7150 4900 50  0001 C CNN
+	1    7150 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0169
+U 1 1 5CA7B666
+P 7150 5500
+F 0 "#PWR0169" H 7150 5250 50  0001 C CNN
+F 1 "GND" H 7155 5327 50  0000 C CNN
+F 2 "" H 7150 5500 50  0001 C CNN
+F 3 "" H 7150 5500 50  0001 C CNN
+	1    7150 5500
+	1    0    0    -1  
+$EndComp
+Text GLabel 7550 5200 2    50   Input ~ 0
+VDIV
+Wire Wire Line
+	7150 5200 7550 5200
+Connection ~ 7150 5200
+Text GLabel 5300 3050 2    50   Input ~ 0
+VDIV
 $EndSCHEMATC
