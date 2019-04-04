@@ -1,29 +1,28 @@
-"Id";"Designator";"Package";"Quantity";"Designation";"Supplier and ref";
-1;"D3";"LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm";1;"WS2812B";;;
-2;"U4";"MDBT50Q-1M";1;"MDBT50Q-1M";;;
-3;"C1,C6,C3,C2";"C_0805_2012Metric";4;"10uF";;;
-4;"C12";"C_0603_1608Metric";1;"100PF";;;
-5;"R9,R5,R7,R10,R11,R12,R13";"R_0603_1608Metric";7;"4.7K";;;
-6;"U7";"Bosch_LGA-8_2x2.5mm_P0.65mm_ClockwisePinNumbering";1;"BMP280";;;
-7;"U6";"ICM-20948";1;"ICM-20948";;;
-8;"U3";"SOT-23-5";1;"AP2112K-3.3";;;
-9;"U2";"SOT-23-5";1;"TLV70218_SOT23-5";;;
-10;"U1";"SOT-23-5";1;"MCP73831-2-OT";;;
-11;"SW1";"Panasonic_EVQPUJ_EVQPUA";1;"SW_Push";;;
-12;"J3";"HRS_DM3AT-SF-PEJM5";1;"DM3AT-SF-PEJM5";;;
-13;"J2";"PinHeader_2x05_P1.27mm_Vertical_SMD";1;"Conn_ARM_JTAG_SWD_10";;;
-14;"C16,C15,C14,C13,C9,C5,C4";"C_0603_1608Metric";7;".1uF";;;
-15;"C11,C10";"C_0603_1608Metric";2;"1uF";;;
-16;"C8,C7";"C_0603_1608Metric";2;"12pF";;;
-17;"Q1";"SOT-23-3";1;"Q_PMOS_GSD";;;
-18;"U5";"VSSOP-8_2.3x2mm_P0.5mm";1;"PCA9306";;;
-19;"BZ1";"Buzzer_Murata_PKMCS0909E4000-R1";1;"Buzzer";;;
-20;"J4";"PinHeader_1x02_P2.54mm_Vertical";1;"Conn_01x02";;;
-21;"D2";"D_0603_1608Metric";1;"LED";;;
-22;"R1,R2,R17,R18";"R_0603_1608Metric";4;"100K";;;
-23;"R3,R4";"R_0603_1608Metric";2;"22";;;
-24;"R6";"R_0603_1608Metric";1;"1K";;;
-25;"R8";"R_0603_1608Metric";1;"200k";;;
-26;"Y1";"FC-135 32.7680KA-AC3";1;"32.768";;;
-27;"J1";"USB_Micro_B_Female_10118194-0001LF";1;"USB_B_Mini";;;
-28;"D1";"D_SOD-123";1;"D_Schottky";;;
+Designator,MPN/Seeed SKU,Quantity,Link,Supplier and ref
+D3,304990003,1,https://statics3.seeedstudio.com/images/opl/datasheet/304990003.pdf,
+U4,113990582,1,https://www.mouser.com/ProductDetail/Seeed-Studio/113990582?qs=sGAEpiMZZMsGelYiB%252BjhZoug4L%2FWODSMtK%252B2PPUqfs4XRnUiIJJ2hg%3D%3D,
+"C1,C6,C3,C2",302010178,4,https://statics3.seeedstudio.com/images/opl/datasheet/0100080P1.pdf,
+C12,302010076,1,https://statics3.seeedstudio.com/images/opl/datasheet/302010076.pdf,
+"R9,R5,R7,R10,R11,R12,R13",301010195,7,https://statics3.seeedstudio.com/images/opl/datasheet/resistance-series.pdf,
+U7,BMP280,1,https://www.mouser.com/ProductDetail/Bosch-Sensortec/BMP280?qs=sGAEpiMZZMtIHXa%252BTo%2Fr2eGxaEtuZJz3i3U5QWpV0wc%3D,
+U6,ICM-20948,1,https://www.mouser.com/ProductDetail/TDK-InvenSense/ICM-20948?qs=sGAEpiMZZMve4%2FbfQkoj%252BJwQU4m%252BZkcVSWoSqbKWYiU%3D,
+U3,AP2112K-3.3TRG1,1,https://www.mouser.com/ProductDetail/Diodes-Incorporated/AP2112K-33TRG1?qs=%2Fha2pyFadugKN4ES11GMq2snst8wH3yje9KIABR%252BTfzTosnOVDqX4A%3D%3D,
+U2,TLV70218DBVT,1,https://www.mouser.com/ProductDetail/Texas-Instruments/TLV70218DBVT?qs=sGAEpiMZZMsGz1a6aV8DcK8%2FNbLQFTsJm3OjJFBXqD8%3D,
+U1,MCP73831T-2ACI/OT ,1,https://www.mouser.com/ProductDetail/Microchip-Technology/MCP73831T-2ACI-OT?qs=sGAEpiMZZMtLck3p7ZBovc%252bIEf4wKPGR,
+SW1,EVQ-PUJ02K,1,https://www.mouser.com/ProductDetail/Panasonic/EVQ-PUJ02K?qs=%2Fha2pyFaduh32GdXYKHv4jrrbBfPRqjzfdf8FlmNDvo%3D,
+J3,DM3AT-SF-PEJM5,1,https://www.digikey.com/product-detail/en/hirose-electric-co-ltd/DM3AT-SF-PEJM5/HR1964CT-ND/2533566,
+J2,M50-3600542R,1,https://www.mouser.com/ProductDetail/Harwin/M50-3600542R?qs=sGAEpiMZZMvxO7XFMojgsDrZBswRTuB8,
+"C16,C15,C14,C13,C9,C5,C4",302010037,7,https://statics3.seeedstudio.com/images/opl/datasheet/302010037.pdf,
+"C11,C10",302010139,2,https://statics3.seeedstudio.com/images/opl/datasheet/0100340P1.pdf,
+"C8,C7",302010049,2,https://statics3.seeedstudio.com/images/opl/datasheet/302010049.pdf,
+Q1,DMG2305UX-7,1,https://www.diodes.com/assets/Datasheets/DMG2305UX.pdf,
+U5,PCA9306DCUR,1,https://www.mouser.com/ProductDetail/Texas-Instruments/PCA9306DCUR?qs=sGAEpiMZZMsty6Jaj0%252BBBvkEAHn4ZEi0EeLKyAodziw%3D,
+BZ1,PKMCS0909E4000-R1,1,https://www.mouser.com/ProductDetail/Murata-Electronics/PKMCS0909E4000-R1?qs=%2Fha2pyFadui1K1i3N8Z4%252B4bkKwHbQN%252BSPuj64PQSz0jmNOq7MpVIpg%3D%3D,
+D2,599-0020-007F,1,MBR120,
+"R1,R2,R17,R18",314110001,4,https://statics3.seeedstudio.com/images/opl/datasheet/314110001.pdf,
+"R3,R4",301010052,2,https://statics3.seeedstudio.com/images/opl/datasheet/301010052.pdf,
+R6,301010298,1,https://statics3.seeedstudio.com/images/opl/datasheet/0011090P1.pdf,
+R8,301010863,1,https://statics3.seeedstudio.com/images/opl/datasheet/resistance-series.pdf,
+Y1,FC-135 32.7680KA-AC3,1,https://www.mouser.com/ProductDetail/Epson-Timing/FC-135-327680KA-AC3?qs=sGAEpiMZZMsBj6bBr9Q9aZLqXgWtLYAXwYm2VNVNmc4%3D,
+J1,10118194-0001LF,1,https://www.digikey.com/product-detail/en/amphenol-icc-fci/10118194-0001LF/609-4618-1-ND/2785382,
+D1,MBR120VLSFT1G,1,https://www.digikey.com/product-detail/en/on-semiconductor/MBR120VLSFT1G/MBR120VLSFT1GOSCT-ND/893874,
