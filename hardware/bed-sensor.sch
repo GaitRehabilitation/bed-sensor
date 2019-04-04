@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:bed-sensor-cache
-EELAYER 26 0
+EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1103,7 +1103,7 @@ SCL_MPU
 Text GLabel 5300 2950 2    50   Input ~ 0
 SDA_MPU
 $Comp
-L bed-sensor-rescue:USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue J1
+L bed-sensor-rescue:USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J1
 U 1 1 5CA6C0FF
 P 1100 5800
 F 0 "J1" H 1157 6267 50  0000 C CNN
@@ -1115,7 +1115,7 @@ F 3 "~" H 1250 5750 50  0001 C CNN
 $EndComp
 Connection ~ 1000 6200
 $Comp
-L bed-sensor-rescue:Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue J2
+L bed-sensor-rescue:Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J2
 U 1 1 5C9E80F8
 P 2950 6150
 F 0 "J2" H 2507 6196 50  0000 R CNN
@@ -1541,79 +1541,14 @@ F 3 "" H 9400 2900 50  0001 C CNN
 	1    9400 2900
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:LED_RCGB D3
-U 1 1 5CA5A38C
-P 5800 5600
-F 0 "D3" V 5846 5270 50  0000 R CNN
-F 1 "LED_RCGB" V 5755 5270 50  0000 R CNN
-F 2 "LED_SMD:LED_Kingbright_AAA3528ESGCT" H 5800 5550 50  0001 C CNN
-F 3 "~" H 5800 5550 50  0001 C CNN
-	1    5800 5600
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R R14
-U 1 1 5CA6159F
-P 5600 5250
-F 0 "R14" H 5670 5296 50  0000 L CNN
-F 1 "330" H 5670 5205 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 5530 5250 50  0001 C CNN
-F 3 "~" H 5600 5250 50  0001 C CNN
-	1    5600 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R15
-U 1 1 5CA636F3
-P 5800 5250
-F 0 "R15" H 5870 5296 50  0000 L CNN
-F 1 "330" H 5870 5205 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 5730 5250 50  0001 C CNN
-F 3 "~" H 5800 5250 50  0001 C CNN
-	1    5800 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R16
-U 1 1 5CA63769
-P 6000 5250
-F 0 "R16" H 6070 5296 50  0000 L CNN
-F 1 "330" H 6070 5205 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 5930 5250 50  0001 C CNN
-F 3 "~" H 6000 5250 50  0001 C CNN
-	1    6000 5250
-	1    0    0    -1  
-$EndComp
-Text GLabel 3550 3600 0    50   Input ~ 0
-R_LED
-Text GLabel 3550 3800 0    50   Input ~ 0
-G_LED
-Text GLabel 3550 3400 0    50   Input ~ 0
-B_LED
-$Comp
-L power:GND #PWR0167
-U 1 1 5CA63A2B
-P 5800 5800
-F 0 "#PWR0167" H 5800 5550 50  0001 C CNN
-F 1 "GND" H 5805 5627 50  0000 C CNN
-F 2 "" H 5800 5800 50  0001 C CNN
-F 3 "" H 5800 5800 50  0001 C CNN
-	1    5800 5800
-	1    0    0    -1  
-$EndComp
-Text GLabel 5600 5100 1    50   Input ~ 0
-R_LED
-Text GLabel 5800 5100 1    50   Input ~ 0
-G_LED
-Text GLabel 6000 5100 1    50   Input ~ 0
-B_LED
+Text GLabel 5500 5500 0    50   Input ~ 0
+NEO_LED
 $Comp
 L Device:R R17
 U 1 1 5CA79672
 P 7150 5050
 F 0 "R17" H 7220 5096 50  0000 L CNN
-F 1 "100k" H 7220 5005 50  0000 L CNN
+F 1 "100K" H 7220 5005 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 7080 5050 50  0001 C CNN
 F 3 "~" H 7150 5050 50  0001 C CNN
 	1    7150 5050
@@ -1624,7 +1559,7 @@ L Device:R R18
 U 1 1 5CA796FA
 P 7150 5350
 F 0 "R18" H 7220 5396 50  0000 L CNN
-F 1 "100k" H 7220 5305 50  0000 L CNN
+F 1 "100K" H 7220 5305 50  0000 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 7080 5350 50  0001 C CNN
 F 3 "~" H 7150 5350 50  0001 C CNN
 	1    7150 5350
@@ -1659,4 +1594,39 @@ Wire Wire Line
 Connection ~ 7150 5200
 Text GLabel 5300 3050 2    50   Input ~ 0
 VDIV
+$Comp
+L LED:WS2812B D3
+U 1 1 5CB862BC
+P 5800 5500
+F 0 "D3" H 6144 5546 50  0000 L CNN
+F 1 "WS2812B" H 6144 5455 50  0000 L CNN
+F 2 "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm" H 5850 5200 50  0001 L TNN
+F 3 "https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf" H 5900 5125 50  0001 L TNN
+	1    5800 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0167
+U 1 1 5CB891BF
+P 5800 5200
+F 0 "#PWR0167" H 5800 5050 50  0001 C CNN
+F 1 "+3.3V" H 5815 5373 50  0000 C CNN
+F 2 "" H 5800 5200 50  0001 C CNN
+F 3 "" H 5800 5200 50  0001 C CNN
+	1    5800 5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0170
+U 1 1 5CB89DBA
+P 5800 5800
+F 0 "#PWR0170" H 5800 5550 50  0001 C CNN
+F 1 "GND" H 5805 5627 50  0000 C CNN
+F 2 "" H 5800 5800 50  0001 C CNN
+F 3 "" H 5800 5800 50  0001 C CNN
+	1    5800 5800
+	1    0    0    -1  
+$EndComp
+Text GLabel 3550 3800 0    50   Input ~ 0
+NEO_LED
 $EndSCHEMATC
