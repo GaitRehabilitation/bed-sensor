@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:bed-sensor-cache
-EELAYER 26 0
+EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1103,7 +1103,7 @@ SCL_MPU
 Text GLabel 5300 2950 2    50   Input ~ 0
 SDA_MPU
 $Comp
-L bed-sensor-rescue:USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J1
+L bed-sensor-rescue:USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J1
 U 1 1 5CA6C0FF
 P 1100 5800
 F 0 "J1" H 1157 6267 50  0000 C CNN
@@ -1115,7 +1115,7 @@ F 3 "~" H 1250 5750 50  0001 C CNN
 $EndComp
 Connection ~ 1000 6200
 $Comp
-L bed-sensor-rescue:Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J2
+L bed-sensor-rescue:Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J2
 U 1 1 5C9E80F8
 P 2950 6150
 F 0 "J2" H 2507 6196 50  0000 R CNN
