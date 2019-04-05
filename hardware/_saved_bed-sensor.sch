@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:bed-sensor-cache
-EELAYER 29 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1103,7 +1103,7 @@ SCL_MPU
 Text GLabel 5300 2950 2    50   Input ~ 0
 SDA_MPU
 $Comp
-L bed-sensor-rescue:USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J1
+L bed-sensor-rescue:USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J1
 U 1 1 5CA6C0FF
 P 1100 5800
 F 0 "J1" H 1157 6267 50  0000 C CNN
@@ -1115,7 +1115,7 @@ F 3 "~" H 1250 5750 50  0001 C CNN
 $EndComp
 Connection ~ 1000 6200
 $Comp
-L bed-sensor-rescue:Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J2
+L bed-sensor-rescue:Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J2
 U 1 1 5C9E80F8
 P 2950 6150
 F 0 "J2" H 2507 6196 50  0000 R CNN
@@ -1546,52 +1546,52 @@ NEO_LED
 $Comp
 L Device:R R17
 U 1 1 5CA79672
-P 7100 5200
-F 0 "R17" H 7170 5246 50  0000 L CNN
-F 1 "100K" H 7170 5155 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 7030 5200 50  0001 C CNN
-F 3 "~" H 7100 5200 50  0001 C CNN
-	1    7100 5200
+P 7150 5050
+F 0 "R17" H 7220 5096 50  0000 L CNN
+F 1 "100K" H 7220 5005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 7080 5050 50  0001 C CNN
+F 3 "~" H 7150 5050 50  0001 C CNN
+	1    7150 5050
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R18
 U 1 1 5CA796FA
-P 7100 5500
-F 0 "R18" H 7170 5546 50  0000 L CNN
-F 1 "100K" H 7170 5455 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 7030 5500 50  0001 C CNN
-F 3 "~" H 7100 5500 50  0001 C CNN
-	1    7100 5500
+P 7150 5350
+F 0 "R18" H 7220 5396 50  0000 L CNN
+F 1 "100K" H 7220 5305 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 7080 5350 50  0001 C CNN
+F 3 "~" H 7150 5350 50  0001 C CNN
+	1    7150 5350
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+BATT #PWR0168
 U 1 1 5CA7B569
-P 7100 5050
-F 0 "#PWR0168" H 7100 4900 50  0001 C CNN
-F 1 "+BATT" H 7115 5223 50  0000 C CNN
-F 2 "" H 7100 5050 50  0001 C CNN
-F 3 "" H 7100 5050 50  0001 C CNN
-	1    7100 5050
+P 7150 4900
+F 0 "#PWR0168" H 7150 4750 50  0001 C CNN
+F 1 "+BATT" H 7165 5073 50  0000 C CNN
+F 2 "" H 7150 4900 50  0001 C CNN
+F 3 "" H 7150 4900 50  0001 C CNN
+	1    7150 4900
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0169
 U 1 1 5CA7B666
-P 7100 5650
-F 0 "#PWR0169" H 7100 5400 50  0001 C CNN
-F 1 "GND" H 7105 5477 50  0000 C CNN
-F 2 "" H 7100 5650 50  0001 C CNN
-F 3 "" H 7100 5650 50  0001 C CNN
-	1    7100 5650
+P 7150 5500
+F 0 "#PWR0169" H 7150 5250 50  0001 C CNN
+F 1 "GND" H 7155 5327 50  0000 C CNN
+F 2 "" H 7150 5500 50  0001 C CNN
+F 3 "" H 7150 5500 50  0001 C CNN
+	1    7150 5500
 	1    0    0    -1  
 $EndComp
-Text GLabel 7500 5350 2    50   Input ~ 0
+Text GLabel 7550 5200 2    50   Input ~ 0
 VDIV
 Wire Wire Line
-	7100 5350 7500 5350
-Connection ~ 7100 5350
+	7150 5200 7550 5200
+Connection ~ 7150 5200
 Text GLabel 5300 3050 2    50   Input ~ 0
 VDIV
 $Comp
