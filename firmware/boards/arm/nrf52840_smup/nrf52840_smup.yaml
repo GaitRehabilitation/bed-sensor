@@ -1,0 +1,13 @@
+identifier: nrf52840_smup
+name: Smart-Up
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+  - xtools
+supported:
+  - usb_device
+  - ble
+  - ieee802154
+  - pwm

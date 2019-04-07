@@ -95,4 +95,4 @@ echo "export ZEPHYR_BASE=/workdir" >> /etc/profile
 echo "export GNUARMEMB_TOOLCHAIN_PATH=/opt/toolchains/${GCC_ARM_NAME}" >> /etc/profile
 echo "export PKG_CONFIG_PATH=/usr/lib/i386-linux-gnu/pkgconfig" >> /etc/profile
 echo "export DISPLAY=:0" >> /etc/profile
-echo "export ZEPHYR_BASE=~/zephyr" >> /etc/profile
+echo "export ZEPHYR_BASE=/home/vagrant/code/zephyr" >> /etc/profile

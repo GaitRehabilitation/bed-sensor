@@ -346,11 +346,11 @@ X 2 2 200 0 100 L 50 50 0 1 P
 ENDDRAW
 ENDDEF
 #
-# bed-sensor-rescue_Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue
+# bed-sensor-rescue_Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue
 #
-DEF bed-sensor-rescue_Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J 0 40 Y Y 1 F N
+DEF bed-sensor-rescue_Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J 0 40 Y Y 1 F N
 F0 "J" -100 650 50 H V R CNN
-F1 "bed-sensor-rescue_Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue" -100 550 50 H V R BNN
+F1 "bed-sensor-rescue_Conn_ARM_JTAG_SWD_10-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue" -100 550 50 H V R BNN
 F2 "Connector_PinHeader_1.27mm:PinHeader_2x05_P1.27mm_Vertical_SMD" 50 -550 50 H I L TNN
 F3 "" -350 -1250 50 V I C CNN
 $FPLIST
@@ -381,11 +381,11 @@ X GNDDetect 9 -100 -600 100 U 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# bed-sensor-rescue_USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue
+# bed-sensor-rescue_USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue
 #
-DEF bed-sensor-rescue_USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J 0 40 Y Y 1 F N
+DEF bed-sensor-rescue_USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue J 0 40 Y Y 1 F N
 F0 "J" -200 450 50 H V L CNN
-F1 "bed-sensor-rescue_USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue" -200 350 50 H V L CNN
+F1 "bed-sensor-rescue_USB_B_Mini-Connector_Specialized-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue-bed-sensor-rescue" -200 350 50 H V L CNN
 F2 "" 150 -50 50 H I C CNN
 F3 "" 150 -50 50 H I C CNN
 $FPLIST
