@@ -42,12 +42,23 @@
     status = "ok";
     sda-pin = <21>;
     scl-pin = <19>;
+    icm20948@15 {
+        compatible = "tdk,icm20948";
+        reg = <0x69>;
+        label = "icm20498";
+    };
 };
 
 &i2c1  {
     status = "ok";
     sda-pin = <44>;
     scl-pin = <37>;
+    bmp280@76 {
+        compatible = "bosch,bme280";
+        reg = <0>;
+        label = "BMP280";
+    };
+
 };
 
 
