@@ -1,32 +1,89 @@
 /*
- * Copyright (c) 2016 Intel Corporation
+ * Copyright (c) 2017 Linaro Limited
+ * Copyright (c) 2018 Intel Corporation
  *
  * SPDX-License-Identifier: Apache-2.0
  */
 
+#include <errno.h>
+#include <string.h>
+
+#define LOG_LEVEL 4
+#include <logging/log.h>
+LOG_MODULE_REGISTER(main);
+
 #include <zephyr.h>
+#include <led_strip.h>
 #include <device.h>
-#include <gpio.h>
+#include <spi.h>
+#include <misc/util.h>
 
-#define LED_PORT LED0_GPIO_CONTROLLER
-#define LED	LED0_GPIO_PIN
+/*
+ * Number of RGB LEDs in the LED strip, adjust as needed.
+ */
+#if defined(CONFIG_WS2812_STRIP)
+#define STRIP_NUM_LEDS 12
+#define STRIP_DEV_NAME DT_WORLDSEMI_WS2812_0_LABEL
+#else
+#define STRIP_NUM_LEDS 24
+#define STRIP_DEV_NAME CONFIG_WS2812B_SW_NAME
+#endif
 
-/* 1000 msec = 1 sec */
-#define SLEEP_TIME 	1000
+#define DELAY_TIME K_MSEC(40)
+
+static const struct led_rgb colors[] = {
+	{ .r = 0xff, .g = 0x00, .b = 0x00, }, /* red */
+	{ .r = 0x00, .g = 0xff, .b = 0x00, }, /* green */
+	{ .r = 0x00, .g = 0x00, .b = 0xff, }, /* blue */
+};
+
+static const struct led_rgb black = {
+	.r = 0x00,
+	.g = 0x00,
+	.b = 0x00,
+};
+
+struct led_rgb strip_colors[STRIP_NUM_LEDS];
+
+const struct led_rgb *color_at(size_t time, size_t i)
+{
+	size_t rgb_start = time % STRIP_NUM_LEDS;
+
+	if (rgb_start <= i && i < rgb_start + ARRAY_SIZE(colors)) {
+		return &colors[i - rgb_start];
+	} else {
+		return &black;
+	}
+}
 
 void main(void)
 {
-	int cnt = 0;
-	struct device *dev;
+	struct device *strip;
+	size_t i, time;
 
-	dev = device_get_binding(LED_PORT);
-	/* Set LED pin as output */
-	gpio_pin_configure(dev, LED, GPIO_DIR_OUT);
+	strip = device_get_binding(STRIP_DEV_NAME);
+	if (strip) {
+		LOG_INF("Found LED strip device %s", STRIP_DEV_NAME);
+	} else {
+		LOG_ERR("LED strip device %s not found", STRIP_DEV_NAME);
+		return;
+	}
 
+	/*
+	 * Display a pattern that "walks" the three primary colors
+	 * down the strip until it reaches the end, then starts at the
+	 * beginning. This has the effect of moving it around in a
+	 * circle in the case of rings of pixels.
+	 */
+	LOG_INF("Displaying pattern on strip");
+	time = 0;
 	while (1) {
-		/* Set pin to HIGH/LOW every 1 second */
-		gpio_pin_write(dev, LED, cnt % 2);
-		cnt++;
-		k_sleep(SLEEP_TIME);
+		for (i = 0; i < STRIP_NUM_LEDS; i++) {
+			memcpy(&strip_colors[i], color_at(time, i),
+			       sizeof(strip_colors[i]));
+		}
+		led_strip_update_rgb(strip, strip_colors, STRIP_NUM_LEDS);
+		k_sleep(DELAY_TIME);
+		time++;
 	}
 }

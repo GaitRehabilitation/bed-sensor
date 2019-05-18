@@ -32,10 +32,7 @@ endif # PWM
 
 if SPI
 
-config SPI_1
-	default y
-
-config SPI_2
+config SPI_0
 	default y
 
 endif # SPI
