@@ -17,24 +17,23 @@ LOG_MODULE_REGISTER(main);
 #include <device.h>
 #include <spi.h>
 #include <misc/util.h>
+#include <math.h>
 
 /*
  * Number of RGB LEDs in the LED strip, adjust as needed.
  */
 #if defined(CONFIG_WS2812_STRIP)
-#define STRIP_NUM_LEDS 12
 #define STRIP_DEV_NAME DT_WORLDSEMI_WS2812_0_LABEL
 #else
-#define STRIP_NUM_LEDS 24
 #define STRIP_DEV_NAME CONFIG_WS2812B_SW_NAME
 #endif
 
 #define DELAY_TIME K_MSEC(40)
 
 static const struct led_rgb colors[] = {
-	{ .r = 0xff, .g = 0x00, .b = 0x00, }, /* red */
-	{ .r = 0x00, .g = 0xff, .b = 0x00, }, /* green */
-	{ .r = 0x00, .g = 0x00, .b = 0xff, }, /* blue */
+	{ .r = 0x4, .g = 0x00, .b = 0x00, }, /* red */
+	{ .r = 0x00, .g = 0x4, .b = 0x00, }, /* green */
+	{ .r = 0x00, .g = 0x00, .b = 0x4, }, /* blue */
 };
 
 static const struct led_rgb black = {
@@ -43,18 +42,9 @@ static const struct led_rgb black = {
 	.b = 0x00,
 };
 
-struct led_rgb strip_colors[STRIP_NUM_LEDS];
+struct led_rgb strip_colors[1];
 
-const struct led_rgb *color_at(size_t time, size_t i)
-{
-	size_t rgb_start = time % STRIP_NUM_LEDS;
 
-	if (rgb_start <= i && i < rgb_start + ARRAY_SIZE(colors)) {
-		return &colors[i - rgb_start];
-	} else {
-		return &black;
-	}
-}
 
 void main(void)
 {
@@ -78,11 +68,12 @@ void main(void)
 	LOG_INF("Displaying pattern on strip");
 	time = 0;
 	while (1) {
-		for (i = 0; i < STRIP_NUM_LEDS; i++) {
-			memcpy(&strip_colors[i], color_at(time, i),
-			       sizeof(strip_colors[i]));
-		}
-		led_strip_update_rgb(strip, strip_colors, STRIP_NUM_LEDS);
+		strip_colors[0].r = (uint8_t) (sinf((time + 3.0f) * .1f) * 10.0f);
+		strip_colors[0].g = (uint8_t) (cosf((time + 3.0f) * .1f) * 10.0f);
+		strip_colors[0].b = (uint8_t) (sinf(time * .1f) * 10.0f);
+		
+		// memcpy(&strip_colors[0], &colors[time % 3], sizeof(strip_colors[0]));
+		led_strip_update_rgb(strip, strip_colors, 1);
 		k_sleep(DELAY_TIME);
 		time++;
 	}
