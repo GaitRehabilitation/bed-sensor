@@ -1,9 +1,0 @@
-# Kconfig - nRF52840-MDK board configuration
-#
-# Copyright (c) 2018 makerdiary.com
-#
-# SPDX-License-Identifier: Apache-2.0
-
-config  BOARD_NRF52840_SMUP
-	bool "NRF52840-SMUP"
-	depends on SOC_NRF52840_QIAA

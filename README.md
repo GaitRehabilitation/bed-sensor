@@ -1,5 +1,28 @@
 # Mini Data Capture
 
+## Programming
+
+### Vagrant
+
+vagrant is tool for managing virtual machines. This setup isolates the building and flashing of the board from the build system in a consistent enviroment. 
+
+#### Building
+
+- nrf52840_pca10056
+- nrf52840_smup
+
+```
+west build --board <board>
+```
+
+#### Flashing
+
+vagrant is provisioned with jlink.  
+
+```
+west flash --runner jlink
+```
+
 ## Maintainers
 
 The current maintainers of this repository are:

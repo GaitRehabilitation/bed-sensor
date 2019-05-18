@@ -66,6 +66,9 @@ apt-get install --no-install-recommends -y \
 wget -O dtc.deb http://security.ubuntu.com/ubuntu/pool/main/d/device-tree-compiler/device-tree-compiler_1.4.7-1_amd64.deb
 dpkg -i dtc.deb
 
+wget -O jlink.deb --post-data="non_emb_ctr=confirmed&accept_license_agreement=accepted&submit=Download software" https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.deb
+dpkg -i jlink.deb
+
 wget -O renode.deb https://github.com/renode/renode/releases/download/v1.6.2/renode_1.6.2_amd64.deb
 apt install -y ./renode.deb
 

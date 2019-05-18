@@ -9,6 +9,12 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder ".", "/home/vagrant/code"
 
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--usb", "on"]
+    vb.customize ["modifyvm", :id, "--usbehci", "on"]
+    vb.customize ['usbfilter', 'add', '0', '--target', :id, '--name', 'J-Link', '--vendorid', '0x1366', '--productid', '0x0101']
+  end
+
   clion = true
   if clion
     config.vm.post_up_message = "CLion workarounds enabled"

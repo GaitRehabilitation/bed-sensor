@@ -1,25 +1,9 @@
+
 sample:
-  description: Hello World sample, the simplest Zephyr
-    application
-  name: hello world
-common:
-  tags: introduction
-  harness: console
-  harness_config:
-    type: one_line
-    regex:
-      - "Hello World! (.*)"
+  name: Bed Sensor
 tests:
-  sample.helloworld:
-    tags: introduction
-  sample.sensor.icm20948:
-    harness: console
-    platform_whitelist: reel_board
-    tags: sensors
-    depends_on: i2c gpio
-    harness_config:
-      type: multi_line
-      ordered: true
-      regex:
-        - "ICM20948 sample application"
-      fixture: fixture_i2c_icm20948
+  sample.blinky:
+    tags: LED gpio
+    filter: DT_GPIO_LEDS_LED0_GPIO_CONTROLLER
+    depends_on: gpio
+    harness: led
