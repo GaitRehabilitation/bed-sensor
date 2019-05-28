@@ -13,6 +13,7 @@
 #include <led_strip.h>
 
 struct led_rgb neo_pixel_color[1];
+
 void set_pixel_color(uint8_t r,uint8_t g, uint8_t b){
     struct device *dev = device_get_binding(STRIP_NAME);
 	if (dev) {
