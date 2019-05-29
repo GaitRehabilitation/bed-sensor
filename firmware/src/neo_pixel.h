@@ -16,9 +16,9 @@ struct led_rgb neo_pixel_color[1];
 void set_pixel_color(uint8_t r,uint8_t g, uint8_t b){
     struct device *dev = device_get_binding(STRIP_NAME);
 	if (dev) {
-		LOG_INF("Found LED strip device %s", STRIP_NAME);
+		printk("Found LED strip device %s \n", STRIP_NAME);
 	} else {
-		LOG_ERR("LED strip device %s not found", STRIP_NAME);
+		printk("LED strip device %s not found \n", STRIP_NAME);
 		return;
 	}
 	neo_pixel_color[0].r = r;
