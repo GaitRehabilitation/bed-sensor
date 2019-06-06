@@ -1,10 +1,3 @@
-/*
- * Copyright (c) 2017 Linaro Limited
- * Copyright (c) 2018 Intel Corporation
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 #include <errno.h>
 #include <string.h>
 
@@ -16,7 +9,6 @@
 
 #include "neo_pixel.h"
 
-
 #include <logging/log.h>
 LOG_MODULE_REGISTER(main);
 
@@ -26,30 +18,54 @@ void main(void)
 	k_sleep(1000);
 	set_pixel_color(0,0,0);
 	
-	struct device *dev = device_get_binding(DT_BOSCH_BME280_0_LABEL);
+	struct device *dev = device_get_binding(DT_TDK_ICM20948_0_LABEL);
 
 	if (dev == NULL) {
-		printk("Could not get BME280 device\n");
+		printk("Could not get ICM20948 device\n");
 		return;
 	}
 
 	printf("dev %p name %s\n", dev, dev->config->name);
 
 	while (1) {
-		struct sensor_value temp, press, humidity;
+		struct sensor_value acc[3];
 
 		sensor_sample_fetch(dev);
-		sensor_channel_get(dev, SENSOR_CHAN_AMBIENT_TEMP, &temp);
-		sensor_channel_get(dev, SENSOR_CHAN_PRESS, &press);
-		sensor_channel_get(dev, SENSOR_CHAN_HUMIDITY, &humidity);
+		sensor_channel_get(dev, SENSOR_CHAN_ACCEL_XYZ, &acc);
 
-		printk("temp: %d.%06d; press: %d.%06d; humidity: %d.%06d\n",
-		      temp.val1, temp.val2, press.val1, press.val2,
-		      humidity.val1, humidity.val2);
+		printk("x: %d.%06d; y: %d.%06d; z: %d.%06d\n",
+		      acc[0].val1, acc[0].val2, acc[1].val1, acc[1].val2,
+		      acc[2].val1, acc[2].val2);
 
-		k_sleep(1000);
+		k_sleep(500);
 
 	}
+
+
+	// struct device *dev = device_get_binding(DT_BOSCH_BME280_0_LABEL);
+
+	// if (dev == NULL) {
+	// 	printk("Could not get BME280 device\n");
+	// 	return;
+	// }
+
+	// printf("dev %p name %s\n", dev, dev->config->name);
+
+	// while (1) {
+	// 	struct sensor_value temp, press, humidity;
+
+	// 	sensor_sample_fetch(dev);
+	// 	sensor_channel_get(dev, SENSOR_CHAN_AMBIENT_TEMP, &temp);
+	// 	sensor_channel_get(dev, SENSOR_CHAN_PRESS, &press);
+	// 	sensor_channel_get(dev, SENSOR_CHAN_HUMIDITY, &humidity);
+
+	// 	printk("temp: %d.%06d; press: %d.%06d; humidity: %d.%06d\n",
+	// 	      temp.val1, temp.val2, press.val1, press.val2,
+	// 	      humidity.val1, humidity.val2);
+
+	// 	k_sleep(1000);
+
+	// }
 
 	// printk("Startting ICM20948 device\n");
 	// int cnt = 0;
